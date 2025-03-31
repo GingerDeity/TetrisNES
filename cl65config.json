@@ -1,5 +1,5 @@
 {
     "executable": "C:\\cc65\\bin\\cl65",
     "input": "tetris-project.asm",
-    "params": "--verbose --target nes -o tetris-project.nes"
+    "params": "--verbose --config my-nes.cfg --target nes -o tetris-project.nes"
 }
