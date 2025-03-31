@@ -13,3 +13,6 @@ Ghidra is a great tool for viewing the disassembled code as a high-level languag
 
 ### Assembler
 This is the tool that will translate the code you wrote in VSCode into binary instructions that an emulator can understand. Go to https://cc65.github.io/getting-started.html and follow the appropriate download instructions, **make sure to extract the ZIP contents to C:\cc65**.
+
+### Emulator
+The final piece, which allows us to play our modified Tetris game! Go to [https://fceux.com/web/download.html] and download the emulator, which comes with a built-in hex editor and debuggers that are perfect for development. 
