@@ -1,5 +1,5 @@
 # TetrisNES
-This contains the general instructions for setting up your NES Dev-Kit for the project!
+This contains the general instructions for setting up your NES Dev-Kit for the project! Reference: https://www.youtube.com/watch?v=RtY5FV5TrIU&list=PLgvDB6LWam2WXHIrK4EkgH1KnpZv3dEAd
 
 ## Installing Tools
 
@@ -15,4 +15,7 @@ Ghidra is a great tool for viewing the disassembled code as a high-level languag
 This is the tool that will translate the code you wrote in VSCode into binary instructions that an emulator can understand. Go to https://cc65.github.io/getting-started.html and follow the appropriate download instructions, **make sure to extract the ZIP contents to C:\cc65**.
 
 ### Emulator
-The final piece, which allows us to play our modified Tetris game! Go to [https://fceux.com/web/download.html] and download the emulator, which comes with a built-in hex editor and debuggers that are perfect for development. 
+The final piece, which allows us to play our modified Tetris game! Go to https://fceux.com/web/download.html and download the binary called "FCEUX 2.6.6 win32 Binary" under "Downloads". This emulator comes with a built-in hex editor and debuggers that are perfect for development.  Extract the contents and double-click the executable inside to boot it up!
+
+## Final Steps
+To have the VSCode editor build NES ROM files from assembly source files, we need to define build tasks. 
