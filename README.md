@@ -21,7 +21,7 @@ To have the VSCode editor build NES ROM files from assembly source files, we nee
 
 1. Open the tetris-project.asm file you made in the editor, then hit Ctrl+Shift+P to open the command palette.
 2. Type "configure default" in the palette and press Enter on the "Tasks: Configure Default Build Task" option. 
-3. This should show a "ca65: Build without config" option, press Enter again, and you should see a new file called "/.vscode/tasks.json". This file only needs to be configured once before you reuse it over and over while you code
+3. This should show a "ca65: Build without config" option, press Enter on that option, and you should see a new file called "/.vscode/tasks.json". This file only needs to be configured once before you reuse it over and over while you code
 4. Save the tasks.json file!
 
 Whenever you want to build a tetris-project.nes file, simply open the tetris-project.asm file and either:
