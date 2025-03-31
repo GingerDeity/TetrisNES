@@ -29,8 +29,8 @@ To have the VSCode editor build NES ROM files from assembly source files, we nee
 4. Save the tasks.json file!
 
 Whenever you want to build a tetris-project.nes file, simply open the tetris-project.s file and either:
-- A. Hit Ctrl+Shift+B
-- B. Hit Ctrl+Shift+P to open the command palette, type "run build task", and press Enter
+- A) Hit Ctrl+Shift+B
+- B) Hit Ctrl+Shift+P to open the command palette, type "run build task", and press Enter
 
 
 
