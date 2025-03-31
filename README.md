@@ -7,7 +7,7 @@ This contains the general instructions for setting up your NES Dev-Kit for the p
 This is the environment for you to modify the 6502 Assembly code taken from the Tetris ROM. *Make sure to install the ca65 Macro Assembler Language Support (6502/65816) extension.*
 
 ### Disassemblers
-This tool will take the original ROM binary and convert it into 6502 Assembly code for us to modify! While Ghidra is a great tool for viewing the disassembled code as a high-level language, it doesn't seem to offer an easy way to export the disassembly for us NES developers. To get a disassembly more suited for development, use the nesgodisasm.exe file in the GitHub with the command: `./nesgodisasm -o tetris-project.asm tetris-OG.nes`
+This tool will take the original ROM binary and convert it into 6502 Assembly code for us to modify! While Ghidra is a great tool for viewing the disassembled code as a high-level language, it doesn't seem to offer an easy way to export the disassembly for us NES developers. To get a disassembly more suited for development, I used the nesgodisasm.exe file in the GitHub with the command: `./nesgodisasm -o tetris-project.asm tetris-OG.nes` to create our project's assembly file!
 
 ### Assembler
 This is the tool that will translate the code you wrote in VSCode into binary instructions that an emulator can understand. Go to https://cc65.github.io/getting-started.html and follow the appropriate download instructions, ***make sure to extract the ZIP contents to C:\cc65***. How we'll automate the use of the assembler will be covered later.
