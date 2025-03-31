@@ -19,7 +19,7 @@ The final piece, which will allow us to play our modified Tetris game! Go to htt
 ## Setting Up VSCode Builds
 To have the VSCode editor build NES ROM files from assembly source files, we need to define a Build Task that uses the cc65 tools we've installed. Fortunately, the ca65 extension from earlier has a helpful command to automatically generate a build task for us!
 
-1. Open the tetris-project.asm file in the editor, then hit Ctrl+Shift+P to open the command palette.
+1. Open the tetris-project.asm file you made in the editor, then hit Ctrl+Shift+P to open the command palette.
 2. Type "configure default" in the palette and press Enter on the "Tasks: Configure Default Build Task" option. 
 3. This should show a "ca65: Build without config" option, press Enter again, and you should see a new file called "/.vscode/tasks.json". This file only needs to be configured once before you reuse it over and over while you code
 4. Save the tasks.json file!
