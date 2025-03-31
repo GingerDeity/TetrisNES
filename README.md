@@ -3,6 +3,9 @@ This contains the general instructions for setting up your NES Dev-Kit for the p
 
 ## Installing Tools and Extensions
 
+### GitHub
+If cloning doesn't immediately work, the option that worked for me was downloading and extracting this repo as a zip, and double-clicking the .code-workspace file.
+
 ### VSCode
 This is the environment for you to modify the 6502 Assembly code taken from the Tetris ROM. *Make sure to install the ca65 Macro Assembler Language Support (6502/65816) extension.*
 
