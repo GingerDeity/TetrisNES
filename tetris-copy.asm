@@ -1063,7 +1063,7 @@ _func_88ab:
   cmp #$80                       ; $88B8  C9 80
   bne _label_88cf                ; $88BA  D0 13
   inx                            ; $88BC  E8
-  lda a:_data_88ee_indexed,X     ; $88BD  BD EE 88
+  lda a:_rotation_table,X     ; $88BD  BD EE 88
   sta z:_var_0042                ; $88C0  85 42
   jsr _func_948b                 ; $88C2  20 8B 94
   bne _label_88e9                ; $88C5  D0 22
@@ -1076,7 +1076,7 @@ _label_88cf:
   and #$40                       ; $88D1  29 40
   cmp #$40                       ; $88D3  C9 40
   bne _label_88ed                ; $88D5  D0 16
-  lda a:_data_88ee_indexed,X     ; $88D7  BD EE 88
+  lda a:_rotation_table,X     ; $88D7  BD EE 88
   sta z:_var_0042                ; $88DA  85 42
   jsr _func_948b                 ; $88DC  20 8B 94
   bne _label_88e9                ; $88DF  D0 08
@@ -1094,7 +1094,7 @@ _label_88ed:
 _data_88ee_indexed:
 .byte $03, $01, $00, $02, $01, $03, $02, $00, $07, $05, $04, $06, $05, $07, $06, $04 ; $88EE
 .byte $09, $09, $08, $08, $0a, $0a, $0c, $0c, $0b, $0b, $10, $0e, $0d, $0f, $0e, $10 ; $88FE
-.byte $0f, $0d, $14, $12, $11, $13, $12, $14, $13, $11 ; ADDED I-BLOCK ROTATION STATES
+.byte $0f, $0d, $12, $12, $11, $11 ; $890E
 
 _func_8914:
   lda z:_var_004e                ; $8914  A5 4E
@@ -1275,7 +1275,7 @@ _label_8a2c:
   sta z:_var_00a9                ; $8A49  85 A9
 
 _label_8a4b:
-  lda a:_data_8a9c_indexed,X     ; $8A4B  BD 9C 8A
+  lda a:_orientation_table,X     ; $8A4B  BD 9C 8A
   asl a                          ; $8A4E  0A
   asl a                          ; $8A4F  0A
   asl a                          ; $8A50  0A
@@ -1286,7 +1286,7 @@ _label_8a4b:
   inc z:_var_00b3                ; $8A59  E6 B3
   iny                            ; $8A5B  C8
   inx                            ; $8A5C  E8
-  lda a:_data_8a9c_indexed,X     ; $8A5D  BD 9C 8A
+  lda a:_orientation_table,X     ; $8A5D  BD 9C 8A
   sta a:_var_0200_indexed,Y      ; $8A60  99 00 02
   inc z:_var_00b3                ; $8A63  E6 B3
   iny                            ; $8A65  C8
@@ -1309,7 +1309,7 @@ _label_8a4b:
 _label_8a84:
   inc z:_var_00b3                ; $8A84  E6 B3
   iny                            ; $8A86  C8
-  lda a:_data_8a9c_indexed,X     ; $8A87  BD 9C 8A
+  lda a:_orientation_table,X     ; $8A87  BD 9C 8A
   asl a                          ; $8A8A  0A
   asl a                          ; $8A8B  0A
   asl a                          ; $8A8C  0A
@@ -1338,19 +1338,14 @@ _data_8a9c_indexed:
 .byte $ff, $7d, $00, $00, $7d, $00, $00, $7d, $01, $01, $7d, $01, $ff, $7c, $00, $00 ; $8B2C
 .byte $7c, $00, $01, $7c, $00, $01, $7c, $01, $00, $7c, $ff, $00, $7c, $00, $00, $7c ; $8B3C
 .byte $01, $01, $7c, $ff, $ff, $7c, $ff, $ff, $7c, $00, $00, $7c, $00, $01, $7c, $00 ; $8B4C
-.byte $ff, $7c, $01, $00, $7c, $ff, $00, $7c, $00, $00, $7c, $01, $fe, $7b, $00, $ff ; ADDED I-BLOCK ORIENTATIONS
-.byte $7b, $00, $00, $7b, $00, $01, $7b, $00, $00, $7b, $fe, $00, $7b, $ff, $00, $7b
-.byte $00, $00, $7b, $01, $fe, $7b, $ff, $ff, $7b, $ff, $00, $7b, $ff, $01, $7b, $ff
-.byte $ff, $7b, $fe, $ff, $7b, $ff, $ff, $7b, $00, $ff, $7b, $01, $00, $ff, $00, $00
-.byte $ff, $00, $00, $ff, $00, $00, $ff, $00, $a5, $a2, $0a, $0a, $85, $a8, $0a, $18
-.byte $65, $a8, $a8, $a6, $b3, $a9, $04, $85, $a9, $b9, $9c, $8a, $18, $0a, $0a, $0a
-.byte $65, $a1, $9d, $00, $02, $e8, $c8, $b9, $9c, $8a, $9d, $00, $02, $e8, $c8, $a9
-.byte $02, $9d, $00, $02, $e8, $b9, $9c, $8a, $18, $0a, $0a, $0a, $65, $a0, $9d, $00
-.byte $02, $e8, $c8, $c6, $a9, $d0, $d2, $86, $b3, $60
-; [$fe, $7b, $00,] [$ff, $7b, $00,] [$00, $7b, $00,] [$01, $7b, $00,] ;0x11
-; [$00, $7b, $fe,] [$00, $7b, $ff,] [$00, $7b $00,] [$00, $7b, $01,] ;0x12
-; [$fe, $7b, $ff,] [$ff, $7b, $ff,] [$00, $7b, $ff,] [$01, $7b, $ff,] ;0x13
-; [$ff, $7b, $fe,] [$ff, $7b, $ff,] [$ff, $7b $00,] [$ff, $7b, $01,] ;0x12
+.byte $ff, $7c, $01, $00, $7c, $ff, $00, $7c, $00, $00, $7c, $01, $fe, $7b, $00, $ff ; $8B5C
+.byte $7b, $00, $00, $7b, $00, $01, $7b, $00, $00, $7b, $fe, $00, $7b, $ff, $00, $7b ; $8B6C
+.byte $00, $00, $7b, $01, $00, $ff, $00, $00, $ff, $00, $00, $ff, $00, $00, $ff, $00 ; $8B7C
+.byte $a5, $a2, $0a, $0a, $85, $a8, $0a, $18, $65, $a8, $a8, $a6, $b3, $a9, $04, $85 ; $8B8C
+.byte $a9, $b9, $9c, $8a, $18, $0a, $0a, $0a, $65, $a1, $9d, $00, $02, $e8, $c8, $b9 ; $8B9C
+.byte $9c, $8a, $9d, $00, $02, $e8, $c8, $a9, $02, $9d, $00, $02, $e8, $b9, $9c, $8a ; $8BAC
+.byte $18, $0a, $0a, $0a, $65, $a0, $9d, $00, $02, $e8, $c8, $c6, $a9, $d0, $d2, $86 ; $8BBC
+.byte $b3, $60                   ; $8BCC
 
 _func_8bce:
   lda z:_var_00df                ; $8BCE  A5 DF
@@ -1574,13 +1569,13 @@ _func_948b:
   sta z:_var_00aa                ; $94A8  85 AA
 
 _label_94aa:
-  lda a:_data_8a9c_indexed,X     ; $94AA  BD 9C 8A
+  lda a:_orientation_table,X     ; $94AA  BD 9C 8A
   clc                            ; $94AD  18
   adc z:_var_0041                ; $94AE  65 41
   adc #$02                       ; $94B0  69 02
   cmp #$16                       ; $94B2  C9 16
   bcs _label_94e9                ; $94B4  B0 33
-  lda a:_data_8a9c_indexed,X     ; $94B6  BD 9C 8A
+  lda a:_orientation_table,X     ; $94B6  BD 9C 8A
   asl a                          ; $94B9  0A
   sta z:_var_00ab                ; $94BA  85 AB
   asl a                          ; $94BC  0A
@@ -1592,14 +1587,14 @@ _label_94aa:
   sta z:_var_00ad_indexed        ; $94C4  85 AD
   inx                            ; $94C6  E8
   inx                            ; $94C7  E8
-  lda a:_data_8a9c_indexed,X     ; $94C8  BD 9C 8A
+  lda a:_orientation_table,X     ; $94C8  BD 9C 8A
   clc                            ; $94CB  18
   adc z:_var_00ad_indexed        ; $94CC  65 AD
   tay                            ; $94CE  A8
   lda (_var_00b8_indexed),Y      ; $94CF  B1 B8
   cmp #$EF                       ; $94D1  C9 EF
   bcc _label_94e9                ; $94D3  90 14
-  lda a:_data_8a9c_indexed,X     ; $94D5  BD 9C 8A
+  lda a:_orientation_table,X     ; $94D5  BD 9C 8A
   clc                            ; $94D8  18
   adc z:_var_0040_indexed        ; $94D9  65 40
   cmp #$0A                       ; $94DB  C9 0A
@@ -2266,7 +2261,7 @@ _label_99b8:
   sta z:_var_00aa                ; $99DB  85 AA
 
 _label_99dd:
-  lda a:_data_8a9c_indexed,X     ; $99DD  BD 9C 8A
+  lda a:_orientation_table,X     ; $99DD  BD 9C 8A
   asl a                          ; $99E0  0A
   sta z:_var_00ab                ; $99E1  85 AB
   asl a                          ; $99E3  0A
@@ -2277,10 +2272,10 @@ _label_99dd:
   adc z:_var_00a8_indexed        ; $99E9  65 A8
   sta z:_var_00ad_indexed        ; $99EB  85 AD
   inx                            ; $99ED  E8
-  lda a:_data_8a9c_indexed,X     ; $99EE  BD 9C 8A
+  lda a:_orientation_table,X     ; $99EE  BD 9C 8A
   sta z:_var_00ac_indexed        ; $99F1  85 AC
   inx                            ; $99F3  E8
-  lda a:_data_8a9c_indexed,X     ; $99F4  BD 9C 8A
+  lda a:_orientation_table,X     ; $99F4  BD 9C 8A
   clc                            ; $99F7  18
   adc z:_var_00ad_indexed        ; $99F8  65 AD
   tay                            ; $99FA  A8
@@ -6832,34 +6827,38 @@ _data_ec2d_indexed:
 .byte $7d, $7f, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FD1D
 .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FD2D
 .byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $fb, $ff, $ff, $ff, $ff, $ff, $ff ; $FD3D
-.byte $ff, $ff, $ff, $fb, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FD4D
-.byte $fd, $af, $fb, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FD5D
-.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FD6D
-.byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ef, $ff, $ff ; $FD7D
-.byte $ff, $7f, $fe, $f7, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $fe ; $FD8D
-.byte $fe, $ff, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FD9D
-.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FDAD
-.byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FDBD
-.byte $ff, $7f, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FDCD
-.byte $ff, $ff, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FDDD
-.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FDED
-.byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $f7, $ff, $ff ; $FDFD
-.byte $ff, $f7, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $fe, $ff, $fb, $ff, $ff, $ff, $ff ; $FE0D
-.byte $ff, $ff, $fa, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FE1D
-.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FE2D
-.byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FE3D
-.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FE4D
-.byte $ff, $ff, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FE5D
-.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FE6D
-.byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $fd, $fe ; $FE7D
-.byte $f7, $ff, $ff, $bf, $ff, $df, $ff, $ff, $bf, $ff, $ff, $ff, $fd, $df, $ff, $bf ; $FE8D
-.byte $ff, $ff, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FE9D
-.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FEAD
-.byte $00, $00, $00, $ff, $bf, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ef, $ff, $ff ; $FEBD
-.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FECD
-.byte $ff, $ff, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FEDD
-.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FEED
-.byte $00, $00, $00              ; $FEFD
+
+_rotation_table:
+.byte $03, $01, $00, $02, $01, $03, $02, $00, $07, $05, $04, $06, $05, $07, $06, $04
+.byte $0B, $09, $08, $0A, $09, $0B, $0A, $08, $0C, $0C, $10, $0E, $0D, $0F, $0E, $10
+.byte $0F, $0D, $14, $12, $11, $13, $12, $14, $13, $11, $18, $16, $15, $17, $16, $18
+.byte $17, $15
+
+_orientation_table:
+.byte $00, $7b, $ff, $00, $7b, $00, $00, $7b, $01, $ff, $7b, $00, $ff, $7b, $00, $00
+.byte $7b, $00, $00, $7b, $01, $01, $7b, $00, $00, $7b, $ff, $00, $7b, $00, $00, $7b
+.byte $01, $01, $7b, $00, $ff, $7b, $00, $00, $7b, $ff, $00, $7b, $00, $01, $7b, $00
+.byte $ff, $7d, $00, $00, $7d, $00, $01, $7d, $ff, $01, $7d, $00, $ff, $7d, $ff, $00 
+.byte $7d, $ff, $00, $7d, $00, $00, $7d, $01, $ff, $7d, $00, $ff, $7d, $01, $00, $7d
+.byte $00, $01, $7d, $00, $00, $7d, $ff, $00, $7d, $00, $00, $7d, $01, $01, $7d, $01
+.byte $ff, $7c, $ff, $ff, $7c, $00, $00, $7c, $00, $00, $7c, $01, $ff, $7c, $01, $00 
+.byte $7c, $00, $00, $7c, $01, $01, $7c, $00, $00, $7c, $ff, $00, $7c, $00, $01, $7c
+.byte $00, $01, $7c, $01, $01, $7c, $ff, $00, $7c, $ff, $00, $7c, $00, $ff, $7c, $00
+.byte $00, $7b, $ff, $00, $7b, $00, $01, $7b, $ff, $01, $7b, $00, $00, $7d, $ff, $00
+.byte $7d, $00, $ff, $7d, $00, $ff, $7d, $01, $ff, $7d, $00, $00, $7d, $00, $00, $7d
+.byte $01, $01, $7d, $01, $00, $7d, $00, $00, $7d, $01, $01, $7d, $ff, $01, $7d, $00
+.byte $00, $7d, $ff, $00, $7d, $00, $ff, $7d, $00, $ff, $7d, $01, $ff, $7c, $00, $00
+.byte $7c, $00, $01, $7c, $00, $01, $7c, $01, $00, $7c, $ff, $00, $7c, $00, $00, $7c
+.byte $01, $01, $7c, $ff, $ff, $7c, $ff, $ff, $7c, $00, $00, $7c, $00, $01, $7c, $00
+.byte $ff, $7c, $01, $00, $7c, $ff, $00, $7c, $00, $00, $7c, $01, $fe, $7b, $00, $ff
+.byte $7b, $00, $00, $7b, $00, $01, $7b, $00, $00, $7b, $fe, $00, $7b, $ff, $00, $7b 
+.byte $00, $00, $7b, $01, $fe, $7b, $ff, $ff, $7b, $ff, $00, $7b, $ff, $01, $7b, $ff
+.byte $ff, $7b, $fe, $ff, $7b, $ff, $ff, $7b, $00, $ff, $7b, $01, $00, $ff, $00, $00
+.byte $ff, $00, $00, $ff, $00, $00, $ff, $00, $a5, $a2, $0a, $0a, $85, $a8, $0a, $18
+.byte $65, $a8, $a8, $a6, $b3, $a9, $04, $85, $a9, $b9, $9c, $8a, $18, $0a, $0a, $0a
+.byte $65, $a1, $9d, $00, $02, $e8, $c8, $b9, $9c, $8a, $9d, $00, $02, $e8, $c8, $a9
+.byte $02, $9d, $00, $02, $e8, $b9, $9c, $8a, $18, $0a, $0a, $0a, $65, $a0, $9d, $00
+.byte $02, $e8, $c8, $c6, $a9, $d0, $d2, $86, $b3, $60
 
 Reset:
   cld                            ; $FF00  D8
