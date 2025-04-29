@@ -14,23 +14,23 @@
 ; curr_piece: $08, $08, $09, $09, $0A, $0A, $0B, $0B
 ; rotation:   CCW  CW   CCW  CW   CCW  CW   CCW  CW
 ; rt[i]:      $0B, $09, $08, $0A, $09, $0B, $0A, $08
-;                     ===O-BLOCK===
-; i:           24,  25,
-; curr_piece: $0C, $0C
-; rotation:   CCW  CW
-; rt[i]:      $0C, $0C
 ;                     ===S-BLOCK===
-; i:           26,  27,  28,  29,  30,  31,  32,  33,
-; curr_piece: $0D, $0D, $0E, $0E, $0F, $0F, $10, $10
+; i:           24,  25,  26,  27,  28,  29,  30,  31,
+; curr_piece: $0C, $0C, $0D, $0D, $0E, $0E, $0F, $0F
 ; rotation:   CCW  CW   CCW  CW   CCW  CW   CCW  CW
-; rt[i]:      $10, $0E, $0D, $0F, $0E, $10, $0F, $0D
+; rt[i]:      $0F, $0D, $0C, $0E, $0D, $0F, $0E, $0C
 ;                     ===L-BLOCK===
-; i:           34,  35,  36,  37,  38,  39,  40,  41,
-; curr_piece: $11, $11, $12, $12, $13, $13, $14, $14
+; i:           32,  33,  34,  35,  36,  37,  38,  39,
+; curr_piece: $10, $10, $11, $11, $12, $12, $13, $13
 ; rotation:   CCW  CW   CCW  CW   CCW  CW   CCW  CW
-; rt[i]:      $14, $12, $11, $13, $12, $14, $13, $11
+; rt[i]:      $13, $11, $10, $12, $11, $13, $12, $10
 ;                     ===I-BLOCK===
-; i:           42,  43,  44,  45,  46,  47,  48,  49,
-; curr_piece: $15, $15, $16, $16, $17, $17, $18, $18
+; i:           40,  41,  42,  43,  44,  45,  46,  47,
+; curr_piece: $14, $14  $15, $15, $16, $16, $17, $17,
 ; rotation:   CCW  CW   CCW  CW   CCW  CW   CCW  CW
-; rt[i]:      $18, $16, $15, $17, $16, $18, $17, $15
+; rt[i]:      $17, $15, $14, $16, $15, $17, $16, $14
+;                     ===O-BLOCK===
+; i:           48,  49,
+; curr_piece: $18, $18
+; rotation:   CCW  CW
+; rt[i]:      $18, $18
