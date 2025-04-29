@@ -1,5 +1,5 @@
 {
     "executable": "C:/cc65/bin/cl65",
-    "input": "tetris-copy.asm",
-    "params": "--verbose --target nes -o tetris-copy.nes"
+    "input": "tetris-OG.asm",
+    "params": "--verbose --target nes -o tetris-OG.nes"
 }
