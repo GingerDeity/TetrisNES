@@ -44,21 +44,20 @@ PPU_SCROLL = $2005
 PPU_STATUS = $2002
 
 
-tmp1 = $0000
-tmp2 = $0001
-tmp3 = $0002
+_var_0000_indexed = $0000
+_var_0001_indexed = $0001
+_var_0002 = $0002
 _var_0005_indexed = $0005
 _var_0006 = $0006
-_var_0011 = $0011
 _var_0014_indexed = $0014
 _var_0015 = $0015
 _var_0017 = $0017
 _var_0019 = $0019
 _var_001a = $001A
 _var_0033 = $0033
-tetriminoX = $0040
-tetriminoY = $0041
-current_piece = $0042
+_var_0040_indexed = $0040
+_var_0041 = $0041
+_var_0042 = $0042
 _var_0044 = $0044
 _var_0045 = $0045
 _var_0046 = $0046
@@ -108,22 +107,22 @@ _var_00a4 = $00A4
 _var_00a5 = $00A5
 _var_00a6 = $00A6
 _var_00a7 = $00A7
-orientation_table_index = $00A8
-tetrimino_iterator = $00A9
-center_block_x_pos = $00AA
-center_block_y_pos = $00AB
+_var_00a8_indexed = $00A8
+_var_00a9 = $00A9
+_var_00aa = $00AA
+_var_00ab = $00AB
 _var_00ac_indexed = $00AC
-levelOrHeight = $00AD
-originalY = $00AE
+_var_00ad_indexed = $00AD
+_var_00ae = $00AE
 _var_00af = $00AF
 _var_00b0 = $00B0
 _var_00b1 = $00B1
 _var_00b2 = $00B2
 _var_00b3 = $00B3
-newButtons = $00B5
+_var_00b5 = $00B5
 _var_00b6 = $00B6
 _var_00b7 = $00B7
-playFieldAddr = $00B8
+_var_00b8_indexed = $00B8
 _var_00b9 = $00B9
 _var_00ba = $00BA
 _var_00bb = $00BB
@@ -177,20 +176,6 @@ _var_00ff = $00FF
 _var_0103_indexed = $0103
 _var_0104_indexed = $0104
 _var_0200_indexed = $0200
-_var_0300 = $0300
-_var_0301 = $0301
-_var_ra = $0302
-_var_0303 = $0303
-_var_0304 = $0304
-_var_rb = $0305
-copyCurrentPiece = $0306
-copyTetriminoX = $0307
-copyTetriminoY = $0308
-_var_rf = $0309
-fa_mask = $030A
-_var_rh = $030B
-_var_030c = $030C
-_var_030d = $030D
 _var_03ef_indexed = $03EF
 _var_03f0_indexed = $03F0
 _var_03f1_indexed = $03F1
@@ -227,7 +212,7 @@ _var_06cd_indexed = $06CD
 _var_06d1_indexed = $06D1
 _var_06ef_indexed = $06EF
 _var_06f0_indexed = $06F0
-sfx = $06F1
+_var_06f1 = $06F1
 _var_06f5 = $06F5
 _var_06f8_indexed = $06F8
 _var_06fd = $06FD
@@ -241,8 +226,6 @@ _var_0751 = $0751
 _var_0752 = $0752
 _var_0753 = $0753
 _var_0754 = $0754
-_var_0e0f = $0e0f
-_var_1212 = $1212
 
 
 .segment "CODE"
@@ -307,16 +290,16 @@ _func_804b:
 
 _label_805a:
   ldy #$06                       ; $805A  A0 06
-  sty z:tmp2        ; $805C  84 01
+  sty z:_var_0001_indexed        ; $805C  84 01
   ldy #$00                       ; $805E  A0 00
-  sty z:tmp1        ; $8060  84 00
+  sty z:_var_0000_indexed        ; $8060  84 00
   lda #$00                       ; $8062  A9 00
 
 _label_8064:
-  sta (tmp1),Y      ; $8064  91 00
+  sta (_var_0000_indexed),Y      ; $8064  91 00
   dey                            ; $8066  88
   bne _label_8064                ; $8067  D0 FB
-  dec z:tmp2        ; $8069  C6 01
+  dec z:_var_0001_indexed        ; $8069  C6 01
   bpl _label_8064                ; $806B  10 F7
   lda a:_var_0750                ; $806D  AD 50 07
   cmp #$12                       ; $8070  C9 12
@@ -505,7 +488,7 @@ _func_81b2:
 
 _label_81cf:
   jsr _func_89ae                 ; $81CF  20 AE 89
-  jsr rotate_tetrimino                 ; $81D2  20 AB 88
+  jsr _func_88ab                 ; $81D2  20 AB 88
   jsr _func_8914                 ; $81D5  20 14 89
   rts                            ; $81D8  60
 
@@ -528,7 +511,7 @@ _func_81d9:
 
 _label_81f6:
   jsr _func_89ae                 ; $81F6  20 AE 89
-  jsr rotate_tetrimino                 ; $81F9  20 AB 88
+  jsr _func_88ab                 ; $81F9  20 AB 88
   jsr _func_8914                 ; $81FC  20 14 89
   rts                            ; $81FF  60
 
@@ -543,7 +526,7 @@ _label_8200:
   lda #$00                       ; $8212  A9 00
   jsr _func_accb                 ; $8214  20 CB AC
   jsr _func_aa98                 ; $8217  20 98 AA
-  slo z:levelOrHeight,X      ; $821A  17 AD
+  slo z:_var_00ad_indexed,X      ; $821A  17 AD
   jsr _func_aa98                 ; $821C  20 98 AA
   clv                            ; $821F  B8
   lda a:$6B20                    ; $8220  AD 20 6B
@@ -558,14 +541,14 @@ _label_8200:
   lda #$FF                       ; $8236  A9 FF
   jsr _func_a459                 ; $8238  20 59 A4
   lda #$FF                       ; $823B  A9 FF
-  sta z:orientation_table_index        ; $823D  85 A8
+  sta z:_var_00a8_indexed        ; $823D  85 A8
 
 _label_823f:
   lda z:_var_00f5_indexed        ; $823F  A5 F5
   cmp #$10                       ; $8241  C9 10
   beq _label_824c                ; $8243  F0 07
   jsr _func_aa2f                 ; $8245  20 2F AA
-  dec z:orientation_table_index        ; $8248  C6 A8
+  dec z:_var_00a8_indexed        ; $8248  C6 A8
   bne _label_823f                ; $824A  D0 F3
 
 _label_824c:
@@ -875,14 +858,14 @@ _func_8776:
   lda #$04                       ; $877A  A9 04
   sta z:_var_00b9                ; $877C  85 B9
   lda z:_var_00f5_indexed        ; $877E  A5 F5
-  sta z:newButtons                ; $8780  85 B5
+  sta z:_var_00b5                ; $8780  85 B5
   lda z:_var_00f7_indexed        ; $8782  A5 F7
   sta z:_var_00b6                ; $8784  85 B6
   ldx #$1F                       ; $8786  A2 1F
 
 _label_8788:
   lda z:_var_0060_indexed,X      ; $8788  B5 60
-  sta z:tetriminoX,X      ; $878A  95 40
+  sta z:_var_0040_indexed,X      ; $878A  95 40
   dex                            ; $878C  CA
   cpx #$FF                       ; $878D  E0 FF
   bne _label_8788                ; $878F  D0 F7
@@ -894,14 +877,14 @@ _func_8792:
   lda #$05                       ; $8796  A9 05
   sta z:_var_00b9                ; $8798  85 B9
   lda z:_var_00f6                ; $879A  A5 F6
-  sta z:newButtons                ; $879C  85 B5
+  sta z:_var_00b5                ; $879C  85 B5
   lda z:$F8                      ; $879E  A5 F8
   sta z:_var_00b6                ; $87A0  85 B6
   ldx #$1F                       ; $87A2  A2 1F
 
 _label_87a4:
   lda z:_var_0080_indexed,X      ; $87A4  B5 80
-  sta z:tetriminoX,X      ; $87A6  95 40
+  sta z:_var_0040_indexed,X      ; $87A6  95 40
   dex                            ; $87A8  CA
   cpx #$FF                       ; $87A9  E0 FF
   bne _label_87a4                ; $87AB  D0 F7
@@ -911,7 +894,7 @@ _func_87ae:
   ldx #$1F                       ; $87AE  A2 1F
 
 _label_87b0:
-  lda z:tetriminoX,X      ; $87B0  B5 40
+  lda z:_var_0040_indexed,X      ; $87B0  B5 40
   sta z:_var_0060_indexed,X      ; $87B2  95 60
   dex                            ; $87B4  CA
   cpx #$FF                       ; $87B5  E0 FF
@@ -931,7 +914,7 @@ _func_87c8:
   ldx #$1F                       ; $87C8  A2 1F
 
 _label_87ca:
-  lda z:tetriminoX,X      ; $87CA  B5 40
+  lda z:_var_0040_indexed,X      ; $87CA  B5 40
   sta z:_var_0080_indexed,X      ; $87CC  95 80
   dex                            ; $87CE  CA
   cpx #$FF                       ; $87CF  E0 FF
@@ -949,20 +932,20 @@ _func_87dc:
 
 _label_87e3:
   lda #$0C                       ; $87E3  A9 0C
-  sta z:orientation_table_index        ; $87E5  85 A8
+  sta z:_var_00a8_indexed        ; $87E5  85 A8
 
 _label_87e7:
-  lda z:orientation_table_index        ; $87E7  A5 A8
+  lda z:_var_00a8_indexed        ; $87E7  A5 A8
   beq _label_884a                ; $87E9  F0 5F
   lda #$14                       ; $87EB  A9 14
   sec                            ; $87ED  38
-  sbc z:orientation_table_index        ; $87EE  E5 A8
-  sta z:tetrimino_iterator                ; $87F0  85 A9
+  sbc z:_var_00a8_indexed        ; $87EE  E5 A8
+  sta z:_var_00a9                ; $87F0  85 A9
   lda #$00                       ; $87F2  A9 00
   sta z:_var_0069                ; $87F4  85 69
   sta z:_var_0089                ; $87F6  85 89
   lda #$09                       ; $87F8  A9 09
-  sta z:center_block_x_pos                ; $87FA  85 AA
+  sta z:_var_00aa                ; $87FA  85 AA
 
 _label_87fc:
   ldx #$17                       ; $87FC  A2 17
@@ -972,17 +955,17 @@ _label_87fc:
   and #$07                       ; $8805  29 07
   tay                            ; $8807  A8
   lda a:_data_887c_indexed,Y     ; $8808  B9 7C 88
-  sta z:center_block_y_pos                ; $880B  85 AB
-  ldx z:tetrimino_iterator                ; $880D  A6 A9
+  sta z:_var_00ab                ; $880B  85 AB
+  ldx z:_var_00a9                ; $880D  A6 A9
   lda a:_data_96d6_indexed,X     ; $880F  BD D6 96
   clc                            ; $8812  18
-  adc z:center_block_x_pos                ; $8813  65 AA
+  adc z:_var_00aa                ; $8813  65 AA
   tay                            ; $8815  A8
-  lda z:center_block_y_pos                ; $8816  A5 AB
+  lda z:_var_00ab                ; $8816  A5 AB
   sta a:_var_0400_indexed,Y      ; $8818  99 00 04
-  lda z:center_block_x_pos                ; $881B  A5 AA
+  lda z:_var_00aa                ; $881B  A5 AA
   beq _label_8824                ; $881D  F0 05
-  dec z:center_block_x_pos                ; $881F  C6 AA
+  dec z:_var_00aa                ; $881F  C6 AA
   jmp _label_87fc                ; $8821  4C FC 87
 
 _label_8824:
@@ -994,7 +977,7 @@ _label_8824:
   cmp #$0A                       ; $882F  C9 0A
   bpl _label_8824                ; $8831  10 F1
   sta z:_var_00ac_indexed        ; $8833  85 AC
-  ldx z:tetrimino_iterator                ; $8835  A6 A9
+  ldx z:_var_00a9                ; $8835  A6 A9
   lda a:_data_96d6_indexed,X     ; $8837  BD D6 96
   clc                            ; $883A  18
   adc z:_var_00ac_indexed        ; $883B  65 AC
@@ -1002,7 +985,7 @@ _label_8824:
   lda #$EF                       ; $883E  A9 EF
   sta a:_var_0400_indexed,Y      ; $8840  99 00 04
   jsr _func_aa2f                 ; $8843  20 2F AA
-  dec z:orientation_table_index        ; $8846  C6 A8
+  dec z:_var_00a8_indexed        ; $8846  C6 A8
   bne _label_87e7                ; $8848  D0 9D
 
 _label_884a:
@@ -1068,47 +1051,47 @@ _label_88a8:
   inc z:_var_00a7                ; $88A8  E6 A7
   rts                            ; $88AA  60
 
-rotate_tetrimino:
-  jmp rotate_tetrimino_new       ; $88AB  A5 42
-  clc                            ; $88AD  85 AE
+_func_88ab:
+  lda z:_var_0042                ; $88AB  A5 42
+  sta z:_var_00ae                ; $88AD  85 AE
   clc                            ; $88AF  18
-  lda z:current_piece            ; $88B0  A5 42
+  lda z:_var_0042                ; $88B0  A5 42
   asl a                          ; $88B2  0A
   tax                            ; $88B3  AA
-  lda z:newButtons               ; $88B4  A5 B5
+  lda z:_var_00b5                ; $88B4  A5 B5
   and #$80                       ; $88B6  29 80
   cmp #$80                       ; $88B8  C9 80
   bne _label_88cf                ; $88BA  D0 13
   inx                            ; $88BC  E8
-  lda a:rotation_table,X         ; $88BD  BD EE 88
-  sta z:current_piece                ; $88C0  85 42
-  jsr is_position_valid                 ; $88C2  20 8B 94
+  lda a:_rotation_table,X     ; $88BD  BD EE 88
+  sta z:_var_0042                ; $88C0  85 42
+  jsr _func_948b                 ; $88C2  20 8B 94
   bne _label_88e9                ; $88C5  D0 22
   lda #$05                       ; $88C7  A9 05
-  sta a:sfx                ; $88C9  8D F1 06
+  sta a:_var_06f1                ; $88C9  8D F1 06
   jmp _label_88ed                ; $88CC  4C ED 88
 
 _label_88cf:
-  lda z:newButtons                ; $88CF  A5 B5
+  lda z:_var_00b5                ; $88CF  A5 B5
   and #$40                       ; $88D1  29 40
   cmp #$40                       ; $88D3  C9 40
   bne _label_88ed                ; $88D5  D0 16
-  lda a:rotation_table,X     ; $88D7  BD EE 88
-  sta z:current_piece                ; $88DA  85 42
-  jsr is_position_valid                 ; $88DC  20 8B 94
+  lda a:_rotation_table,X     ; $88D7  BD EE 88
+  sta z:_var_0042                ; $88DA  85 42
+  jsr _func_948b                 ; $88DC  20 8B 94
   bne _label_88e9                ; $88DF  D0 08
   lda #$05                       ; $88E1  A9 05
-  sta a:sfx                ; $88E3  8D F1 06
+  sta a:_var_06f1                ; $88E3  8D F1 06
   jmp _label_88ed                ; $88E6  4C ED 88
 
 _label_88e9:
-  lda z:originalY                ; $88E9  A5 AE
-  sta z:current_piece                ; $88EB  85 42
+  lda z:_var_00ae                ; $88E9  A5 AE
+  sta z:_var_0042                ; $88EB  85 42
 
 _label_88ed:
   rts                            ; $88ED  60
 
-old_rotation_table:
+_data_88ee_indexed:
 .byte $03, $01, $00, $02, $01, $03, $02, $00, $07, $05, $04, $06, $05, $07, $06, $04 ; $88EE
 .byte $09, $09, $08, $08, $0a, $0a, $0c, $0c, $0b, $0b, $10, $0e, $0d, $0f, $0e, $10 ; $88FE
 .byte $0f, $0d, $12, $12, $11, $11 ; $890E
@@ -1116,7 +1099,7 @@ old_rotation_table:
 _func_8914:
   lda z:_var_004e                ; $8914  A5 4E
   bpl _label_8922                ; $8916  10 0A
-  lda z:newButtons                ; $8918  A5 B5
+  lda z:_var_00b5                ; $8918  A5 B5
   and #$04                       ; $891A  29 04
   beq _label_8989                ; $891C  F0 6B
   lda #$00                       ; $891E  A9 00
@@ -1127,7 +1110,7 @@ _label_8922:
   lda z:_var_00b6                ; $8924  A5 B6
   and #$03                       ; $8926  29 03
   bne _label_8973                ; $8928  D0 49
-  lda z:newButtons                ; $892A  A5 B5
+  lda z:_var_00b5                ; $892A  A5 B5
   and #$0F                       ; $892C  29 0F
   cmp #$04                       ; $892E  C9 04
   bne _label_8973                ; $8930  D0 41
@@ -1157,13 +1140,13 @@ _label_894a:
 _label_8958:
   lda #$00                       ; $8958  A9 00
   sta z:_var_0045                ; $895A  85 45
-  lda z:tetriminoY                ; $895C  A5 41
-  sta z:originalY                ; $895E  85 AE
-  inc z:tetriminoY                ; $8960  E6 41
-  jsr is_position_valid                 ; $8962  20 8B 94
+  lda z:_var_0041                ; $895C  A5 41
+  sta z:_var_00ae                ; $895E  85 AE
+  inc z:_var_0041                ; $8960  E6 41
+  jsr _func_948b                 ; $8962  20 8B 94
   beq _label_8972                ; $8965  F0 0B
-  lda z:originalY                ; $8967  A5 AE
-  sta z:tetriminoY                ; $8969  85 41
+  lda z:_var_00ae                ; $8967  A5 AE
+  sta z:_var_0041                ; $8969  85 41
   lda #$02                       ; $896B  A9 02
   sta z:_var_0048                ; $896D  85 48
   jsr _func_9caf                 ; $896F  20 AF 9C
@@ -1194,12 +1177,12 @@ _data_898e_indexed:
 .byte $03, $03, $03, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $01, $01, $01 ; $899E
 
 _func_89ae:
-  lda z:tetriminoX        ; $89AE  A5 40
-  sta z:originalY                ; $89B0  85 AE
+  lda z:_var_0040_indexed        ; $89AE  A5 40
+  sta z:_var_00ae                ; $89B0  85 AE
   lda z:_var_00b6                ; $89B2  A5 B6
   and #$04                       ; $89B4  29 04
   bne _label_8a09                ; $89B6  D0 51
-  lda z:newButtons                ; $89B8  A5 B5
+  lda z:_var_00b5                ; $89B8  A5 B5
   and #$03                       ; $89BA  29 03
   bne _label_89d3                ; $89BC  D0 15
   lda z:_var_00b6                ; $89BE  A5 B6
@@ -1221,27 +1204,27 @@ _label_89d7:
   lda z:_var_00b6                ; $89D7  A5 B6
   and #$01                       ; $89D9  29 01
   beq _label_89ec                ; $89DB  F0 0F
-  inc z:tetriminoX        ; $89DD  E6 40
-  jsr is_position_valid                 ; $89DF  20 8B 94
+  inc z:_var_0040_indexed        ; $89DD  E6 40
+  jsr _func_948b                 ; $89DF  20 8B 94
   bne _label_8a01                ; $89E2  D0 1D
   lda #$03                       ; $89E4  A9 03
-  sta a:sfx                ; $89E6  8D F1 06
+  sta a:_var_06f1                ; $89E6  8D F1 06
   jmp _label_8a09                ; $89E9  4C 09 8A
 
 _label_89ec:
   lda z:_var_00b6                ; $89EC  A5 B6
   and #$02                       ; $89EE  29 02
   beq _label_8a09                ; $89F0  F0 17
-  dec z:tetriminoX        ; $89F2  C6 40
-  jsr is_position_valid                 ; $89F4  20 8B 94
+  dec z:_var_0040_indexed        ; $89F2  C6 40
+  jsr _func_948b                 ; $89F4  20 8B 94
   bne _label_8a01                ; $89F7  D0 08
   lda #$03                       ; $89F9  A9 03
-  sta a:sfx                ; $89FB  8D F1 06
+  sta a:_var_06f1                ; $89FB  8D F1 06
   jmp _label_8a09                ; $89FE  4C 09 8A
 
 _label_8a01:
-  lda z:originalY                ; $8A01  A5 AE
-  sta z:tetriminoX        ; $8A03  85 40
+  lda z:_var_00ae                ; $8A01  A5 AE
+  sta z:_var_0040_indexed        ; $8A03  85 40
   lda #$10                       ; $8A05  A9 10
   sta z:_var_0046                ; $8A07  85 46
 
@@ -1249,68 +1232,68 @@ _label_8a09:
   rts                            ; $8A09  60
 
 _func_8a0a:
-  lda z:tetriminoX        ; $8A0A  A5 40
+  lda z:_var_0040_indexed        ; $8A0A  A5 40
   asl a                          ; $8A0C  0A
   asl a                          ; $8A0D  0A
   asl a                          ; $8A0E  0A
   adc #$60                       ; $8A0F  69 60
-  sta z:center_block_x_pos                ; $8A11  85 AA
+  sta z:_var_00aa                ; $8A11  85 AA
   lda z:_var_00be                ; $8A13  A5 BE
   cmp #$01                       ; $8A15  C9 01
   beq _label_8a2c                ; $8A17  F0 13
-  lda z:center_block_x_pos                ; $8A19  A5 AA
+  lda z:_var_00aa                ; $8A19  A5 AA
   sec                            ; $8A1B  38
   sbc #$40                       ; $8A1C  E9 40
-  sta z:center_block_x_pos                ; $8A1E  85 AA
+  sta z:_var_00aa                ; $8A1E  85 AA
   lda z:_var_00b7                ; $8A20  A5 B7
   cmp #$01                       ; $8A22  C9 01
   beq _label_8a2c                ; $8A24  F0 06
-  lda z:center_block_x_pos                ; $8A26  A5 AA
+  lda z:_var_00aa                ; $8A26  A5 AA
   adc #$6F                       ; $8A28  69 6F
-  sta z:center_block_x_pos                ; $8A2A  85 AA
+  sta z:_var_00aa                ; $8A2A  85 AA
 
 _label_8a2c:
   clc                            ; $8A2C  18
-  lda z:tetriminoY                ; $8A2D  A5 41
+  lda z:_var_0041                ; $8A2D  A5 41
   rol a                          ; $8A2F  2A
   rol a                          ; $8A30  2A
   rol a                          ; $8A31  2A
   adc #$2F                       ; $8A32  69 2F
-  sta z:center_block_y_pos                ; $8A34  85 AB
-  lda z:current_piece                ; $8A36  A5 42
+  sta z:_var_00ab                ; $8A34  85 AB
+  lda z:_var_0042                ; $8A36  A5 42
   sta z:_var_00ac_indexed        ; $8A38  85 AC
   clc                            ; $8A3A  18
   lda z:_var_00ac_indexed        ; $8A3B  A5 AC
   rol a                          ; $8A3D  2A
   rol a                          ; $8A3E  2A
-  sta z:orientation_table_index        ; $8A3F  85 A8
+  sta z:_var_00a8_indexed        ; $8A3F  85 A8
   rol a                          ; $8A41  2A
-  adc z:orientation_table_index        ; $8A42  65 A8
+  adc z:_var_00a8_indexed        ; $8A42  65 A8
   tax                            ; $8A44  AA
   ldy z:_var_00b3                ; $8A45  A4 B3
   lda #$04                       ; $8A47  A9 04
-  sta z:tetrimino_iterator                ; $8A49  85 A9
+  sta z:_var_00a9                ; $8A49  85 A9
 
 _label_8a4b:
-  lda a:orientation_table,X     ; $8A4B  BD 9C 8A
+  lda a:_orientation_table,X     ; $8A4B  BD 9C 8A
   asl a                          ; $8A4E  0A
   asl a                          ; $8A4F  0A
   asl a                          ; $8A50  0A
   clc                            ; $8A51  18
-  adc z:center_block_y_pos                ; $8A52  65 AB
+  adc z:_var_00ab                ; $8A52  65 AB
   sta a:_var_0200_indexed,Y      ; $8A54  99 00 02
-  sta z:originalY                ; $8A57  85 AE
+  sta z:_var_00ae                ; $8A57  85 AE
   inc z:_var_00b3                ; $8A59  E6 B3
   iny                            ; $8A5B  C8
   inx                            ; $8A5C  E8
-  lda a:orientation_table,X     ; $8A5D  BD 9C 8A
+  lda a:_orientation_table,X     ; $8A5D  BD 9C 8A
   sta a:_var_0200_indexed,Y      ; $8A60  99 00 02
   inc z:_var_00b3                ; $8A63  E6 B3
   iny                            ; $8A65  C8
   inx                            ; $8A66  E8
   lda #$02                       ; $8A67  A9 02
   sta a:_var_0200_indexed,Y      ; $8A69  99 00 02
-  lda z:originalY                ; $8A6C  A5 AE
+  lda z:_var_00ae                ; $8A6C  A5 AE
   cmp #$2F                       ; $8A6E  C9 2F
   bcs _label_8a84                ; $8A70  B0 12
   inc z:_var_00b3                ; $8A72  E6 B3
@@ -1326,23 +1309,23 @@ _label_8a4b:
 _label_8a84:
   inc z:_var_00b3                ; $8A84  E6 B3
   iny                            ; $8A86  C8
-  lda a:orientation_table,X     ; $8A87  BD 9C 8A
+  lda a:_orientation_table,X     ; $8A87  BD 9C 8A
   asl a                          ; $8A8A  0A
   asl a                          ; $8A8B  0A
   asl a                          ; $8A8C  0A
   clc                            ; $8A8D  18
-  adc z:center_block_x_pos                ; $8A8E  65 AA
+  adc z:_var_00aa                ; $8A8E  65 AA
   sta a:_var_0200_indexed,Y      ; $8A90  99 00 02
 
 _label_8a93:
   inc z:_var_00b3                ; $8A93  E6 B3
   iny                            ; $8A95  C8
   inx                            ; $8A96  E8
-  dec z:tetrimino_iterator                ; $8A97  C6 A9
+  dec z:_var_00a9                ; $8A97  C6 A9
   bne _label_8a4b                ; $8A99  D0 B0
   rts                            ; $8A9B  60
 
-old_orientation_table:
+_data_8a9c_indexed:
 .byte $00, $7b, $ff, $00, $7b, $00, $00, $7b, $01, $ff, $7b, $00, $ff, $7b, $00, $00 ; $8A9C
 .byte $7b, $00, $00, $7b, $01, $01, $7b, $00, $00, $7b, $ff, $00, $7b, $00, $00, $7b ; $8AAC
 .byte $01, $01, $7b, $00, $ff, $7b, $00, $00, $7b, $ff, $00, $7b, $00, $01, $7b, $00 ; $8ABC
@@ -1392,15 +1375,15 @@ _func_8c27:
   rol a                          ; $8C2A  2A
   tax                            ; $8C2B  AA
   lda a:_data_8c6c_indexed,X     ; $8C2C  BD 6C 8C
-  sta z:orientation_table_index        ; $8C2F  85 A8
+  sta z:_var_00a8_indexed        ; $8C2F  85 A8
   inx                            ; $8C31  E8
   lda a:_data_8c6c_indexed,X     ; $8C32  BD 6C 8C
-  sta z:tetrimino_iterator                ; $8C35  85 A9
+  sta z:_var_00a9                ; $8C35  85 A9
   ldx z:_var_00b3                ; $8C37  A6 B3
   ldy #$00                       ; $8C39  A0 00
 
 _label_8c3b:
-  lda (orientation_table_index),Y      ; $8C3B  B1 A8
+  lda (_var_00a8_indexed),Y      ; $8C3B  B1 A8
   cmp #$FF                       ; $8C3D  C9 FF
   beq _label_8c6b                ; $8C3F  F0 2A
   clc                            ; $8C41  18
@@ -1408,15 +1391,15 @@ _label_8c3b:
   sta a:_var_0200_indexed,X      ; $8C44  9D 00 02
   inx                            ; $8C47  E8
   iny                            ; $8C48  C8
-  lda (orientation_table_index),Y      ; $8C49  B1 A8
+  lda (_var_00a8_indexed),Y      ; $8C49  B1 A8
   sta a:_var_0200_indexed,X      ; $8C4B  9D 00 02
   inx                            ; $8C4E  E8
   iny                            ; $8C4F  C8
-  lda (orientation_table_index),Y      ; $8C50  B1 A8
+  lda (_var_00a8_indexed),Y      ; $8C50  B1 A8
   sta a:_var_0200_indexed,X      ; $8C52  9D 00 02
   inx                            ; $8C55  E8
   iny                            ; $8C56  C8
-  lda (orientation_table_index),Y      ; $8C57  B1 A8
+  lda (_var_00a8_indexed),Y      ; $8C57  B1 A8
   clc                            ; $8C59  18
   adc z:_var_00a0                ; $8C5A  65 A0
   sta a:_var_0200_indexed,X      ; $8C5C  9D 00 02
@@ -1563,69 +1546,69 @@ _data_8c6c_indexed:
 .byte $21, $f8, $f0, $bd, $21, $00, $f0, $be, $21, $08, $f8, $cd, $21, $00, $f8, $ce ; $946C
 .byte $21, $08, $f8, $cf, $21, $10, $00, $dd, $21, $00, $00, $de, $21, $08, $ff ; $947C
 
-is_position_valid:
-  lda z:tetriminoY                ; $948B  A5 41
+_func_948b:
+  lda z:_var_0041                ; $948B  A5 41
   asl a                          ; $948D  0A
-  sta z:orientation_table_index        ; $948E  85 A8
+  sta z:_var_00a8_indexed        ; $948E  85 A8
   asl a                          ; $9490  0A
   asl a                          ; $9491  0A
   clc                            ; $9492  18
-  adc z:orientation_table_index        ; $9493  65 A8
-  adc z:tetriminoX        ; $9495  65 40
-  sta z:orientation_table_index        ; $9497  85 A8
-  lda z:current_piece                ; $9499  A5 42
+  adc z:_var_00a8_indexed        ; $9493  65 A8
+  adc z:_var_0040_indexed        ; $9495  65 40
+  sta z:_var_00a8_indexed        ; $9497  85 A8
+  lda z:_var_0042                ; $9499  A5 42
   asl a                          ; $949B  0A
   asl a                          ; $949C  0A
-  sta z:tetrimino_iterator                ; $949D  85 A9
+  sta z:_var_00a9                ; $949D  85 A9
   asl a                          ; $949F  0A
   clc                            ; $94A0  18
-  adc z:tetrimino_iterator                ; $94A1  65 A9
+  adc z:_var_00a9                ; $94A1  65 A9
   tax                            ; $94A3  AA
   ldy #$00                       ; $94A4  A0 00
   lda #$04                       ; $94A6  A9 04
-  sta z:center_block_x_pos                ; $94A8  85 AA
+  sta z:_var_00aa                ; $94A8  85 AA
 
-checkSquare:
-  lda a:orientation_table,X     ; $94AA  BD 9C 8A
+_label_94aa:
+  lda a:_orientation_table,X     ; $94AA  BD 9C 8A
   clc                            ; $94AD  18
-  adc z:tetriminoY                ; $94AE  65 41
+  adc z:_var_0041                ; $94AE  65 41
   adc #$02                       ; $94B0  69 02
   cmp #$16                       ; $94B2  C9 16
-  bcs invalid                ; $94B4  B0 33
-  lda a:orientation_table,X     ; $94B6  BD 9C 8A
+  bcs _label_94e9                ; $94B4  B0 33
+  lda a:_orientation_table,X     ; $94B6  BD 9C 8A
   asl a                          ; $94B9  0A
-  sta z:center_block_y_pos                ; $94BA  85 AB
+  sta z:_var_00ab                ; $94BA  85 AB
   asl a                          ; $94BC  0A
   asl a                          ; $94BD  0A
   clc                            ; $94BE  18
-  adc z:center_block_y_pos                ; $94BF  65 AB
+  adc z:_var_00ab                ; $94BF  65 AB
   clc                            ; $94C1  18
-  adc z:orientation_table_index        ; $94C2  65 A8
-  sta z:levelOrHeight        ; $94C4  85 AD
+  adc z:_var_00a8_indexed        ; $94C2  65 A8
+  sta z:_var_00ad_indexed        ; $94C4  85 AD
   inx                            ; $94C6  E8
   inx                            ; $94C7  E8
-  lda a:orientation_table,X     ; $94C8  BD 9C 8A
+  lda a:_orientation_table,X     ; $94C8  BD 9C 8A
   clc                            ; $94CB  18
-  adc z:levelOrHeight        ; $94CC  65 AD
+  adc z:_var_00ad_indexed        ; $94CC  65 AD
   tay                            ; $94CE  A8
-  lda (playFieldAddr),Y      ; $94CF  B1 B8
+  lda (_var_00b8_indexed),Y      ; $94CF  B1 B8
   cmp #$EF                       ; $94D1  C9 EF
-  bcc invalid                ; $94D3  90 14
-  lda a:orientation_table,X     ; $94D5  BD 9C 8A
+  bcc _label_94e9                ; $94D3  90 14
+  lda a:_orientation_table,X     ; $94D5  BD 9C 8A
   clc                            ; $94D8  18
-  adc z:tetriminoX        ; $94D9  65 40
+  adc z:_var_0040_indexed        ; $94D9  65 40
   cmp #$0A                       ; $94DB  C9 0A
-  bcs invalid                ; $94DD  B0 0A
+  bcs _label_94e9                ; $94DD  B0 0A
   inx                            ; $94DF  E8
-  dec z:center_block_x_pos                ; $94E0  C6 AA
-  bne checkSquare                ; $94E2  D0 C6
+  dec z:_var_00aa                ; $94E0  C6 AA
+  bne _label_94aa                ; $94E2  D0 C6
   lda #$00                       ; $94E4  A9 00
-  sta z:orientation_table_index        ; $94E6  85 A8
+  sta z:_var_00a8_indexed        ; $94E6  85 A8
   rts                            ; $94E8  60
 
-invalid:
+_label_94e9:
   lda #$FF                       ; $94E9  A9 FF
-  sta z:orientation_table_index        ; $94EB  85 A8
+  sta z:_var_00a8_indexed        ; $94EB  85 A8
   rts                            ; $94ED  60
 
 _label_94ee:
@@ -1759,12 +1742,12 @@ _label_95e3:
   beq _label_960e                ; $95ED  F0 1F
   ldx z:_var_0064                ; $95EF  A6 64
   lda a:_data_96b8_indexed,X     ; $95F1  BD B8 96
-  sta z:orientation_table_index        ; $95F4  85 A8
+  sta z:_var_00a8_indexed        ; $95F4  85 A8
   lda #$22                       ; $95F6  A9 22
   sta PPU_ADDR                   ; $95F8  8D 06 20
   lda #$BA                       ; $95FB  A9 BA
   sta PPU_ADDR                   ; $95FD  8D 06 20
-  lda z:orientation_table_index        ; $9600  A5 A8
+  lda z:_var_00a8_indexed        ; $9600  A5 A8
   jsr _func_9712                 ; $9602  20 12 97
   jsr _func_9808                 ; $9605  20 08 98
   lda z:_var_00a3                ; $9608  A5 A3
@@ -1839,7 +1822,7 @@ _label_9673:
   and #$07                       ; $968F  29 07
   bne _label_9698                ; $9691  D0 05
   lda #$09                       ; $9693  A9 09
-  sta a:sfx                ; $9695  8D F1 06
+  sta a:_var_06f1                ; $9695  8D F1 06
 
 _label_9698:
   stx PPU_DATA                   ; $9698  8E 07 20
@@ -1871,14 +1854,14 @@ _data_96ea_indexed:
 .byte $c6, $22, $e6, $22, $06, $23, $26, $23 ; $970A
 
 _func_9712:
-  sta z:orientation_table_index        ; $9712  85 A8
+  sta z:_var_00a8_indexed        ; $9712  85 A8
   and #$F0                       ; $9714  29 F0
   lsr a                          ; $9716  4A
   lsr a                          ; $9717  4A
   lsr a                          ; $9718  4A
   lsr a                          ; $9719  4A
   sta PPU_DATA                   ; $971A  8D 07 20
-  lda z:orientation_table_index        ; $971D  A5 A8
+  lda z:_var_00a8_indexed        ; $971D  A5 A8
   and #$0F                       ; $971F  29 0F
   sta PPU_DATA                   ; $9721  8D 07 20
   rts                            ; $9724  60
@@ -1925,7 +1908,7 @@ _label_9767:
   ldx #$0A                       ; $9767  A2 0A
 
 _label_9769:
-  lda (playFieldAddr),Y      ; $9769  B1 B8
+  lda (_var_00b8_indexed),Y      ; $9769  B1 B8
   sta PPU_DATA                   ; $976B  8D 07 20
   iny                            ; $976E  C8
   dex                            ; $976F  CA
@@ -1945,66 +1928,66 @@ _func_977f:
   and #$03                       ; $9781  29 03
   bne _label_97fd                ; $9783  D0 78
   lda #$00                       ; $9785  A9 00
-  sta z:center_block_x_pos                ; $9787  85 AA
+  sta z:_var_00aa                ; $9787  85 AA
 
 _label_9789:
-  ldx z:center_block_x_pos                ; $9789  A6 AA
+  ldx z:_var_00aa                ; $9789  A6 AA
   lda z:_var_004a_indexed,X      ; $978B  B5 4A
   beq _label_97eb                ; $978D  F0 5C
   asl a                          ; $978F  0A
   tay                            ; $9790  A8
   lda a:_data_96ea_indexed,Y     ; $9791  B9 EA 96
-  sta z:orientation_table_index        ; $9794  85 A8
+  sta z:_var_00a8_indexed        ; $9794  85 A8
   lda z:_var_00be                ; $9796  A5 BE
   cmp #$01                       ; $9798  C9 01
   bne _label_97a6                ; $979A  D0 0A
-  lda z:orientation_table_index        ; $979C  A5 A8
+  lda z:_var_00a8_indexed        ; $979C  A5 A8
   clc                            ; $979E  18
   adc #$06                       ; $979F  69 06
-  sta z:orientation_table_index        ; $97A1  85 A8
+  sta z:_var_00a8_indexed        ; $97A1  85 A8
   jmp _label_97bd                ; $97A3  4C BD 97
 
 _label_97a6:
   lda z:_var_00b9                ; $97A6  A5 B9
   cmp #$04                       ; $97A8  C9 04
   bne _label_97b6                ; $97AA  D0 0A
-  lda z:orientation_table_index        ; $97AC  A5 A8
+  lda z:_var_00a8_indexed        ; $97AC  A5 A8
   sec                            ; $97AE  38
   sbc #$02                       ; $97AF  E9 02
-  sta z:orientation_table_index        ; $97B1  85 A8
+  sta z:_var_00a8_indexed        ; $97B1  85 A8
   jmp _label_97bd                ; $97B3  4C BD 97
 
 _label_97b6:
-  lda z:orientation_table_index        ; $97B6  A5 A8
+  lda z:_var_00a8_indexed        ; $97B6  A5 A8
   clc                            ; $97B8  18
   adc #$0C                       ; $97B9  69 0C
-  sta z:orientation_table_index        ; $97BB  85 A8
+  sta z:_var_00a8_indexed        ; $97BB  85 A8
 
 _label_97bd:
   iny                            ; $97BD  C8
   lda a:_data_96ea_indexed,Y     ; $97BE  B9 EA 96
-  sta z:tetrimino_iterator                ; $97C1  85 A9
+  sta z:_var_00a9                ; $97C1  85 A9
   sta PPU_ADDR                   ; $97C3  8D 06 20
   ldx z:_var_0052                ; $97C6  A6 52
   lda a:_data_97fe_indexed,X     ; $97C8  BD FE 97
   clc                            ; $97CB  18
-  adc z:orientation_table_index        ; $97CC  65 A8
+  adc z:_var_00a8_indexed        ; $97CC  65 A8
   sta PPU_ADDR                   ; $97CE  8D 06 20
   lda #$FF                       ; $97D1  A9 FF
   sta PPU_DATA                   ; $97D3  8D 07 20
-  lda z:tetrimino_iterator                ; $97D6  A5 A9
+  lda z:_var_00a9                ; $97D6  A5 A9
   sta PPU_ADDR                   ; $97D8  8D 06 20
   ldx z:_var_0052                ; $97DB  A6 52
   lda a:_data_9803_indexed,X     ; $97DD  BD 03 98
   clc                            ; $97E0  18
-  adc z:orientation_table_index        ; $97E1  65 A8
+  adc z:_var_00a8_indexed        ; $97E1  65 A8
   sta PPU_ADDR                   ; $97E3  8D 06 20
   lda #$FF                       ; $97E6  A9 FF
   sta PPU_DATA                   ; $97E8  8D 07 20
 
 _label_97eb:
-  inc z:center_block_x_pos                ; $97EB  E6 AA
-  lda z:center_block_x_pos                ; $97ED  A5 AA
+  inc z:_var_00aa                ; $97EB  E6 AA
+  lda z:_var_00aa                ; $97ED  A5 AA
   cmp #$04                       ; $97EF  C9 04
   bne _label_9789                ; $97F1  D0 96
   inc z:_var_0052                ; $97F3  E6 52
@@ -2037,14 +2020,14 @@ _label_9814:
   asl a                          ; $9815  0A
   tax                            ; $9816  AA
   lda #$00                       ; $9817  A9 00
-  sta z:orientation_table_index        ; $9819  85 A8
+  sta z:_var_00a8_indexed        ; $9819  85 A8
 
 _label_981b:
   lda #$3F                       ; $981B  A9 3F
   sta PPU_ADDR                   ; $981D  8D 06 20
   lda #$08                       ; $9820  A9 08
   clc                            ; $9822  18
-  adc z:orientation_table_index        ; $9823  65 A8
+  adc z:_var_00a8_indexed        ; $9823  65 A8
   sta PPU_ADDR                   ; $9825  8D 06 20
   lda a:_data_984c_indexed,X     ; $9828  BD 4C 98
   sta PPU_DATA                   ; $982B  8D 07 20
@@ -2054,10 +2037,10 @@ _label_981b:
   sta PPU_DATA                   ; $9837  8D 07 20
   lda a:_data_984f_indexed,X     ; $983A  BD 4F 98
   sta PPU_DATA                   ; $983D  8D 07 20
-  lda z:orientation_table_index        ; $9840  A5 A8
+  lda z:_var_00a8_indexed        ; $9840  A5 A8
   clc                            ; $9842  18
   adc #$10                       ; $9843  69 10
-  sta z:orientation_table_index        ; $9845  85 A8
+  sta z:_var_00a8_indexed        ; $9845  85 A8
   cmp #$20                       ; $9847  C9 20
   bne _label_981b                ; $9849  D0 D0
   rts                            ; $984B  60
@@ -2111,14 +2094,14 @@ _label_98ba:
   lda #$00                       ; $98BA  A9 00
   sta z:_var_00a4                ; $98BC  85 A4
   sta z:_var_0045                ; $98BE  85 45
-  sta z:tetriminoY                ; $98C0  85 41
+  sta z:_var_0041                ; $98C0  85 41
   lda #$01                       ; $98C2  A9 01
   sta z:_var_0048                ; $98C4  85 48
   lda #$05                       ; $98C6  A9 05
-  sta z:tetriminoX        ; $98C8  85 40
+  sta z:_var_0040_indexed        ; $98C8  85 40
   ldx z:_var_00bf                ; $98CA  A6 BF
-  lda a:_data_9956_indexed,X     ; $98CC  BD 56 99
-  sta z:current_piece                ; $98CF  85 42
+  lda a:_data_9956_indexed,X           ; $98CC  BD 56 99
+  sta z:_var_0042                ; $98CF  85 42
   jsr _func_9969                 ; $98D1  20 69 99
   lda z:_var_00be                ; $98D4  A5 BE
   cmp #$01                       ; $98D6  C9 01
@@ -2214,26 +2197,26 @@ _func_9969:
   lda a:_var_03f0_indexed,X      ; $996F  BD F0 03
   clc                            ; $9972  18
   adc #$01                       ; $9973  69 01
-  sta z:orientation_table_index        ; $9975  85 A8
+  sta z:_var_00a8_indexed        ; $9975  85 A8
   and #$0F                       ; $9977  29 0F
   cmp #$0A                       ; $9979  C9 0A
   bmi _label_9996                ; $997B  30 19
-  lda z:orientation_table_index        ; $997D  A5 A8
+  lda z:_var_00a8_indexed        ; $997D  A5 A8
   clc                            ; $997F  18
   adc #$06                       ; $9980  69 06
-  sta z:orientation_table_index        ; $9982  85 A8
+  sta z:_var_00a8_indexed        ; $9982  85 A8
   cmp #$A0                       ; $9984  C9 A0
   bcc _label_9996                ; $9986  90 0E
   clc                            ; $9988  18
   adc #$60                       ; $9989  69 60
-  sta z:orientation_table_index        ; $998B  85 A8
+  sta z:_var_00a8_indexed        ; $998B  85 A8
   lda a:_var_03f1_indexed,X      ; $998D  BD F1 03
   clc                            ; $9990  18
   adc #$01                       ; $9991  69 01
   sta a:_var_03f1_indexed,X      ; $9993  9D F1 03
 
 _label_9996:
-  lda z:orientation_table_index        ; $9996  A5 A8
+  lda z:_var_00a8_indexed        ; $9996  A5 A8
   sta a:_var_03f0_indexed,X      ; $9998  9D F0 03
   lda z:_var_00a3                ; $999B  A5 A3
   ora #$40                       ; $999D  09 40
@@ -2241,7 +2224,7 @@ _label_9996:
   rts                            ; $99A1  60
 
 _label_99a2:
-  jsr is_position_valid                 ; $99A2  20 8B 94
+  jsr _func_948b                 ; $99A2  20 8B 94
   beq _label_99b8                ; $99A5  F0 11
   lda #$02                       ; $99A7  A9 02
   sta a:_var_06f0_indexed        ; $99A9  8D F0 06
@@ -2256,50 +2239,50 @@ _label_99b8:
   lda z:_var_0049                ; $99B8  A5 49
   cmp #$20                       ; $99BA  C9 20
   bmi _label_9a10                ; $99BC  30 52
-  lda z:tetriminoY                ; $99BE  A5 41
+  lda z:_var_0041                ; $99BE  A5 41
   asl a                          ; $99C0  0A
-  sta z:orientation_table_index        ; $99C1  85 A8
+  sta z:_var_00a8_indexed        ; $99C1  85 A8
   asl a                          ; $99C3  0A
   asl a                          ; $99C4  0A
   clc                            ; $99C5  18
-  adc z:orientation_table_index        ; $99C6  65 A8
-  adc z:tetriminoX        ; $99C8  65 40
-  sta z:orientation_table_index        ; $99CA  85 A8
-  lda z:current_piece                ; $99CC  A5 42
+  adc z:_var_00a8_indexed        ; $99C6  65 A8
+  adc z:_var_0040_indexed        ; $99C8  65 40
+  sta z:_var_00a8_indexed        ; $99CA  85 A8
+  lda z:_var_0042                ; $99CC  A5 42
   asl a                          ; $99CE  0A
   asl a                          ; $99CF  0A
-  sta z:tetrimino_iterator                ; $99D0  85 A9
+  sta z:_var_00a9                ; $99D0  85 A9
   asl a                          ; $99D2  0A
   clc                            ; $99D3  18
-  adc z:tetrimino_iterator                ; $99D4  65 A9
+  adc z:_var_00a9                ; $99D4  65 A9
   tax                            ; $99D6  AA
   ldy #$00                       ; $99D7  A0 00
   lda #$04                       ; $99D9  A9 04
-  sta z:center_block_x_pos                ; $99DB  85 AA
+  sta z:_var_00aa                ; $99DB  85 AA
 
 _label_99dd:
-  lda a:orientation_table,X     ; $99DD  BD 9C 8A
+  lda a:_orientation_table,X     ; $99DD  BD 9C 8A
   asl a                          ; $99E0  0A
-  sta z:center_block_y_pos                ; $99E1  85 AB
+  sta z:_var_00ab                ; $99E1  85 AB
   asl a                          ; $99E3  0A
   asl a                          ; $99E4  0A
   clc                            ; $99E5  18
-  adc z:center_block_y_pos                ; $99E6  65 AB
+  adc z:_var_00ab                ; $99E6  65 AB
   clc                            ; $99E8  18
-  adc z:orientation_table_index        ; $99E9  65 A8
-  sta z:levelOrHeight        ; $99EB  85 AD
+  adc z:_var_00a8_indexed        ; $99E9  65 A8
+  sta z:_var_00ad_indexed        ; $99EB  85 AD
   inx                            ; $99ED  E8
-  lda a:orientation_table,X     ; $99EE  BD 9C 8A
+  lda a:_orientation_table,X     ; $99EE  BD 9C 8A
   sta z:_var_00ac_indexed        ; $99F1  85 AC
   inx                            ; $99F3  E8
-  lda a:orientation_table,X     ; $99F4  BD 9C 8A
+  lda a:_orientation_table,X     ; $99F4  BD 9C 8A
   clc                            ; $99F7  18
-  adc z:levelOrHeight        ; $99F8  65 AD
+  adc z:_var_00ad_indexed        ; $99F8  65 AD
   tay                            ; $99FA  A8
   lda z:_var_00ac_indexed        ; $99FB  A5 AC
-  sta (playFieldAddr),Y      ; $99FD  91 B8
+  sta (_var_00b8_indexed),Y      ; $99FD  91 B8
   inx                            ; $99FF  E8
-  dec z:center_block_x_pos                ; $9A00  C6 AA
+  dec z:_var_00aa                ; $9A00  C6 AA
   bne _label_99dd                ; $9A02  D0 D9
   lda #$00                       ; $9A04  A9 00
   sta z:_var_0057                ; $9A06  85 57
@@ -2322,16 +2305,16 @@ _label_9a11:
   lda a:_data_96d6_indexed,X     ; $9A21  BD D6 96
   tay                            ; $9A24  A8
   lda #$00                       ; $9A25  A9 00
-  sta z:center_block_x_pos                ; $9A27  85 AA
+  sta z:_var_00aa                ; $9A27  85 AA
   lda #$19                       ; $9A29  A9 13
-  sta z:current_piece                ; $9A2B  85 42
+  sta z:_var_0042                ; $9A2B  85 42
 
 _label_9a2d:
   lda #$4F                       ; $9A2D  A9 4F
-  sta (playFieldAddr),Y      ; $9A2F  91 B8
+  sta (_var_00b8_indexed),Y      ; $9A2F  91 B8
   iny                            ; $9A31  C8
-  inc z:center_block_x_pos                ; $9A32  E6 AA
-  lda z:center_block_x_pos                ; $9A34  A5 AA
+  inc z:_var_00aa                ; $9A32  E6 AA
+  lda z:_var_00aa                ; $9A34  A5 AA
   cmp #$0A                       ; $9A36  C9 0A
   bne _label_9a2d                ; $9A38  D0 F3
   lda z:_var_0058                ; $9A3A  A5 58
@@ -2378,7 +2361,7 @@ _label_9a6b:
   jmp _label_9b02                ; $9A71  4C 02 9B
 
 _label_9a74:
-  lda z:tetriminoY                ; $9A74  A5 41
+  lda z:_var_0041                ; $9A74  A5 41
   sec                            ; $9A76  38
   sbc #$02                       ; $9A77  E9 02
   bpl _label_9a7d                ; $9A79  10 02
@@ -2387,40 +2370,40 @@ _label_9a74:
 _label_9a7d:
   clc                            ; $9A7D  18
   adc z:_var_0057                ; $9A7E  65 57
-  sta z:tetrimino_iterator                ; $9A80  85 A9
+  sta z:_var_00a9                ; $9A80  85 A9
   asl a                          ; $9A82  0A
-  sta z:orientation_table_index        ; $9A83  85 A8
+  sta z:_var_00a8_indexed        ; $9A83  85 A8
   asl a                          ; $9A85  0A
   asl a                          ; $9A86  0A
   clc                            ; $9A87  18
-  adc z:orientation_table_index        ; $9A88  65 A8
-  sta z:orientation_table_index        ; $9A8A  85 A8
+  adc z:_var_00a8_indexed        ; $9A88  65 A8
+  sta z:_var_00a8_indexed        ; $9A8A  85 A8
   tay                            ; $9A8C  A8
   ldx #$0A                       ; $9A8D  A2 0A
 
 _label_9a8f:
-  lda (playFieldAddr),Y      ; $9A8F  B1 B8
+  lda (_var_00b8_indexed),Y      ; $9A8F  B1 B8
   cmp #$EF                       ; $9A91  C9 EF
   beq _label_9acc                ; $9A93  F0 37
   iny                            ; $9A95  C8
   dex                            ; $9A96  CA
   bne _label_9a8f                ; $9A97  D0 F6
   lda #$0A                       ; $9A99  A9 0A
-  sta a:sfx                ; $9A9B  8D F1 06
+  sta a:_var_06f1                ; $9A9B  8D F1 06
   inc z:_var_0056                ; $9A9E  E6 56
   ldx z:_var_0057                ; $9AA0  A6 57
-  lda z:tetrimino_iterator                ; $9AA2  A5 A9
+  lda z:_var_00a9                ; $9AA2  A5 A9
   sta z:_var_004a_indexed,X      ; $9AA4  95 4A
-  ldy z:orientation_table_index        ; $9AA6  A4 A8
+  ldy z:_var_00a8_indexed        ; $9AA6  A4 A8
   dey                            ; $9AA8  88
 
 _label_9aa9:
-  lda (playFieldAddr),Y      ; $9AA9  B1 B8
+  lda (_var_00b8_indexed),Y      ; $9AA9  B1 B8
   ldx #$0A                       ; $9AAB  A2 0A
-  stx z:playFieldAddr        ; $9AAD  86 B8
-  sta (playFieldAddr),Y      ; $9AAF  91 B8
+  stx z:_var_00b8_indexed        ; $9AAD  86 B8
+  sta (_var_00b8_indexed),Y      ; $9AAF  91 B8
   lda #$00                       ; $9AB1  A9 00
-  sta z:playFieldAddr        ; $9AB3  85 B8
+  sta z:_var_00b8_indexed        ; $9AB3  85 B8
   dey                            ; $9AB5  88
   cpy #$FF                       ; $9AB6  C0 FF
   bne _label_9aa9                ; $9AB8  D0 EF
@@ -2428,12 +2411,12 @@ _label_9aa9:
   ldy #$00                       ; $9ABC  A0 00
 
 _label_9abe:
-  sta (playFieldAddr),Y      ; $9ABE  91 B8
+  sta (_var_00b8_indexed),Y      ; $9ABE  91 B8
   iny                            ; $9AC0  C8
   cpy #$0A                       ; $9AC1  C0 0A
   bne _label_9abe                ; $9AC3  D0 F9
   lda #$19                       ; $9AC5  A9 13
-  sta z:current_piece                ; $9AC7  85 42
+  sta z:_var_0042                ; $9AC7  85 42
   jmp _label_9ad2                ; $9AC9  4C D2 9A
 
 _label_9acc:
@@ -2458,7 +2441,7 @@ _label_9ad2:
   cmp #$04                       ; $9AEC  C9 04
   bne _label_9af5                ; $9AEE  D0 05
   lda #$04                       ; $9AF0  A9 04
-  sta a:sfx                ; $9AF2  8D F1 06
+  sta a:_var_06f1                ; $9AF2  8D F1 06
 
 _label_9af5:
   inc z:_var_0048                ; $9AF5  E6 48
@@ -2466,7 +2449,7 @@ _label_9af5:
   bne _label_9b02                ; $9AF9  D0 07
   inc z:_var_0048                ; $9AFB  E6 48
   lda #$07                       ; $9AFD  A9 07
-  sta a:sfx                ; $9AFF  8D F1 06
+  sta a:_var_06f1                ; $9AFF  8D F1 06
 
 _label_9b02:
   rts                            ; $9B02  60
@@ -2481,18 +2464,18 @@ _label_9b03:
   cmp #$20                       ; $9B0F  C9 20
   bmi _label_9b52                ; $9B11  30 3F
   lda a:_data_96d6_indexed,Y     ; $9B13  B9 D6 96
-  sta z:tetrimino_iterator                ; $9B16  85 A9
+  sta z:_var_00a9                ; $9B16  85 A9
   lda #$00                       ; $9B18  A9 00
-  sta z:orientation_table_index        ; $9B1A  85 A8
+  sta z:_var_00a8_indexed        ; $9B1A  85 A8
 
 _label_9b1c:
-  ldy z:tetrimino_iterator                ; $9B1C  A4 A9
-  lda (playFieldAddr),Y      ; $9B1E  B1 B8
-  ldy z:orientation_table_index        ; $9B20  A4 A8
-  sta (playFieldAddr),Y      ; $9B22  91 B8
-  inc z:orientation_table_index        ; $9B24  E6 A8
-  inc z:tetrimino_iterator                ; $9B26  E6 A9
-  lda z:tetrimino_iterator                ; $9B28  A5 A9
+  ldy z:_var_00a9                ; $9B1C  A4 A9
+  lda (_var_00b8_indexed),Y      ; $9B1E  B1 B8
+  ldy z:_var_00a8_indexed        ; $9B20  A4 A8
+  sta (_var_00b8_indexed),Y      ; $9B22  91 B8
+  inc z:_var_00a8_indexed        ; $9B24  E6 A8
+  inc z:_var_00a9                ; $9B26  E6 A9
+  lda z:_var_00a9                ; $9B28  A5 A9
   cmp #$C8                       ; $9B2A  C9 C8
   bne _label_9b1c                ; $9B2C  D0 EE
   iny                            ; $9B2E  C8
@@ -2508,7 +2491,7 @@ _label_9b3a:
   lda #$FF                       ; $9B3A  A9 FF
 
 _label_9b3c:
-  sta (playFieldAddr),Y      ; $9B3C  91 B8
+  sta (_var_00b8_indexed),Y      ; $9B3C  91 B8
   inx                            ; $9B3E  E8
   cpx #$0A                       ; $9B3F  E0 0A
   bne _label_9b45                ; $9B41  D0 02
@@ -2559,10 +2542,10 @@ _label_9b78:
   lda z:_var_00c1                ; $9B7E  A5 C1
   beq _label_9ba6                ; $9B80  F0 24
   lda z:_var_0056                ; $9B82  A5 56
-  sta z:orientation_table_index        ; $9B84  85 A8
+  sta z:_var_00a8_indexed        ; $9B84  85 A8
   lda z:_var_0050                ; $9B86  A5 50
   sec                            ; $9B88  38
-  sbc z:orientation_table_index        ; $9B89  E5 A8
+  sbc z:_var_00a8_indexed        ; $9B89  E5 A8
   sta z:_var_0050                ; $9B8B  85 50
   bpl _label_9b96                ; $9B8D  10 07
   lda #$00                       ; $9B8F  A9 00
@@ -2608,23 +2591,23 @@ _label_9bc7:
 
 _label_9bd0:
   lda z:_var_0051                ; $9BD0  A5 51
-  sta z:tetrimino_iterator                ; $9BD2  85 A9
+  sta z:_var_00a9                ; $9BD2  85 A9
   lda z:_var_0050                ; $9BD4  A5 50
-  sta z:orientation_table_index        ; $9BD6  85 A8
-  lsr z:tetrimino_iterator                ; $9BD8  46 A9
-  ror z:orientation_table_index        ; $9BDA  66 A8
-  lsr z:tetrimino_iterator                ; $9BDC  46 A9
-  ror z:orientation_table_index        ; $9BDE  66 A8
-  lsr z:tetrimino_iterator                ; $9BE0  46 A9
-  ror z:orientation_table_index        ; $9BE2  66 A8
-  lsr z:tetrimino_iterator                ; $9BE4  46 A9
-  ror z:orientation_table_index        ; $9BE6  66 A8
+  sta z:_var_00a8_indexed        ; $9BD6  85 A8
+  lsr z:_var_00a9                ; $9BD8  46 A9
+  ror z:_var_00a8_indexed        ; $9BDA  66 A8
+  lsr z:_var_00a9                ; $9BDC  46 A9
+  ror z:_var_00a8_indexed        ; $9BDE  66 A8
+  lsr z:_var_00a9                ; $9BE0  46 A9
+  ror z:_var_00a8_indexed        ; $9BE2  66 A8
+  lsr z:_var_00a9                ; $9BE4  46 A9
+  ror z:_var_00a8_indexed        ; $9BE6  66 A8
   lda z:_var_0044                ; $9BE8  A5 44
-  cmp z:orientation_table_index        ; $9BEA  C5 A8
+  cmp z:_var_00a8_indexed        ; $9BEA  C5 A8
   bpl _label_9bfb                ; $9BEC  10 0D
   inc z:_var_0044                ; $9BEE  E6 44
   lda #$06                       ; $9BF0  A9 06
-  sta a:sfx                ; $9BF2  8D F1 06
+  sta a:_var_06f1                ; $9BF2  8D F1 06
   lda z:_var_00a3                ; $9BF5  A5 A3
   ora #$02                       ; $9BF7  09 02
   sta z:_var_00a3                ; $9BF9  85 A3
@@ -2668,8 +2651,8 @@ _label_9c2d:
   lda #$00                       ; $9C2D  A9 00
   sta z:_var_004f                ; $9C2F  85 4F
   lda z:_var_0044                ; $9C31  A5 44
-  sta z:orientation_table_index        ; $9C33  85 A8
-  inc z:orientation_table_index        ; $9C35  E6 A8
+  sta z:_var_00a8_indexed        ; $9C33  85 A8
+  inc z:_var_00a8_indexed        ; $9C35  E6 A8
 
 _label_9c37:
   lda z:_var_0056                ; $9C37  A5 56
@@ -2732,7 +2715,7 @@ _label_9c84:
   sta z:_var_0055                ; $9C92  85 55
 
 _label_9c94:
-  dec z:orientation_table_index        ; $9C94  C6 A8
+  dec z:_var_00a8_indexed        ; $9C94  C6 A8
   bne _label_9c37                ; $9C96  D0 9F
   lda z:_var_00a3                ; $9C98  A5 A3
   ora #$04                       ; $9C9A  09 04
@@ -2746,7 +2729,7 @@ _data_9ca5_indexed:
 .byte $00, $00, $40, $00, $00, $01, $00, $03, $00, $12 ; $9CA5
 
 _func_9caf:
-  ldx z:tetriminoY                ; $9CAF  A6 41
+  ldx z:_var_0041                ; $9CAF  A6 41
   dex                            ; $9CB1  CA
   dex                            ; $9CB2  CA
   txa                            ; $9CB3  8A
@@ -2763,7 +2746,7 @@ _label_9cbe:
 
 _label_9cbf:
   lda #$05                       ; $9CBF  A9 05
-  sta z:tetrimino_iterator                ; $9CC1  85 A9
+  sta z:_var_00a9                ; $9CC1  85 A9
   lda z:_var_0068                ; $9CC3  A5 68
   cmp #$00                       ; $9CC5  C9 00
   beq _label_9cd9                ; $9CC7  F0 10
@@ -2771,7 +2754,7 @@ _label_9cbf:
   cmp #$01                       ; $9CCB  C9 01
   beq _label_9d14                ; $9CCD  F0 45
   lda #$04                       ; $9CCF  A9 04
-  sta z:tetrimino_iterator                ; $9CD1  85 A9
+  sta z:_var_00a9                ; $9CD1  85 A9
   lda z:_var_0088                ; $9CD3  A5 88
   cmp #$00                       ; $9CD5  C9 00
   bne _label_9d14                ; $9CD7  D0 3B
@@ -2822,7 +2805,7 @@ _func_9d17:
   ldx #$0A                       ; $9D1D  A2 0A
 
 _label_9d1f:
-  lda (playFieldAddr),Y      ; $9D1F  B1 B8
+  lda (_var_00b8_indexed),Y      ; $9D1F  B1 B8
   cmp #$EF                       ; $9D21  C9 EF
   bne _label_9d3c                ; $9D23  D0 17
   iny                            ; $9D25  C8
@@ -2875,13 +2858,13 @@ _label_9d5b:
 _label_9d73:
   ldx #$00                       ; $9D73  A2 00
   lda (_var_00d1_indexed,X)      ; $9D75  A1 D1
-  sta z:orientation_table_index        ; $9D77  85 A8
+  sta z:_var_00a8_indexed        ; $9D77  85 A8
   jsr _func_9de8                 ; $9D79  20 E8 9D
   lda z:_var_00ce                ; $9D7C  A5 CE
-  eor z:orientation_table_index        ; $9D7E  45 A8
-  and z:orientation_table_index        ; $9D80  25 A8
+  eor z:_var_00a8_indexed        ; $9D7E  45 A8
+  and z:_var_00a8_indexed        ; $9D80  25 A8
   sta z:_var_00f5_indexed        ; $9D82  85 F5
-  lda z:orientation_table_index        ; $9D84  A5 A8
+  lda z:_var_00a8_indexed        ; $9D84  A5 A8
   sta z:_var_00ce                ; $9D86  85 CE
   ldx #$00                       ; $9D88  A2 00
   lda (_var_00d1_indexed,X)      ; $9D8A  A1 D1
@@ -2998,7 +2981,7 @@ _label_9e27:
 
 _label_9e2f:
   lda #$19                       ; $9E2F  A9 13
-  sta z:current_piece                ; $9E31  85 42
+  sta z:_var_0042                ; $9E31  85 42
   rts                            ; $9E33  60
 
 .byte $e6, $a7, $60              ; $9E34
@@ -3032,7 +3015,7 @@ _label_9e49:
   asl a                          ; $9E5D  0A
   asl a                          ; $9E5E  0A
   asl a                          ; $9E5F  0A
-  sta z:center_block_y_pos                ; $9E60  85 AB
+  sta z:_var_00ab                ; $9E60  85 AB
   lda z:_var_0079                ; $9E62  A5 79
   asl a                          ; $9E64  0A
   asl a                          ; $9E65  0A
@@ -3071,7 +3054,7 @@ _label_9e96:
 
 _label_9ea4:
   jsr _func_aa98                 ; $9EA4  20 98 AA
-  sre (levelOrHeight,X)      ; $9EA7  43 AD
+  sre (_var_00ad_indexed,X)      ; $9EA7  43 AD
   jsr _func_a463                 ; $9EA9  20 63 A4
   jsr _func_aa6b                 ; $9EAC  20 6B AA
   jsr _func_aa2f                 ; $9EAF  20 2F AA
@@ -3090,35 +3073,35 @@ _label_9ea4:
   lda z:_var_0075                ; $9ECE  A5 75
   sta z:_var_00de                ; $9ED0  85 DE
   lda #$02                       ; $9ED2  A9 02
-  sta a:sfx                ; $9ED4  8D F1 06
+  sta a:_var_06f1                ; $9ED4  8D F1 06
   lda #$00                       ; $9ED7  A9 00
   sta z:_var_0073                ; $9ED9  85 73
   sta z:_var_0074                ; $9EDB  85 74
   sta z:_var_0075                ; $9EDD  85 75
   lda #$40                       ; $9EDF  A9 40
   jsr _func_a7fd                 ; $9EE1  20 FD A7
-  lda z:center_block_y_pos                ; $9EE4  A5 AB
+  lda z:_var_00ab                ; $9EE4  A5 AB
   beq _label_9f12                ; $9EE6  F0 2A
 
 _label_9ee8:
-  dec z:center_block_y_pos                ; $9EE8  C6 AB
-  lda z:center_block_y_pos                ; $9EEA  A5 AB
+  dec z:_var_00ab                ; $9EE8  C6 AB
+  lda z:_var_00ab                ; $9EEA  A5 AB
   and #$0F                       ; $9EEC  29 0F
   cmp #$0F                       ; $9EEE  C9 0F
   bne _label_9efa                ; $9EF0  D0 08
-  lda z:center_block_y_pos                ; $9EF2  A5 AB
+  lda z:_var_00ab                ; $9EF2  A5 AB
   and #$F0                       ; $9EF4  29 F0
   ora #$09                       ; $9EF6  09 09
-  sta z:center_block_y_pos                ; $9EF8  85 AB
+  sta z:_var_00ab                ; $9EF8  85 AB
 
 _label_9efa:
-  lda z:center_block_y_pos                ; $9EFA  A5 AB
+  lda z:_var_00ab                ; $9EFA  A5 AB
   jsr _func_9f62                 ; $9EFC  20 62 9F
   lda #$01                       ; $9EFF  A9 01
-  sta a:sfx                ; $9F01  8D F1 06
+  sta a:_var_06f1                ; $9F01  8D F1 06
   lda #$02                       ; $9F04  A9 02
   jsr _func_a7fd                 ; $9F06  20 FD A7
-  lda z:center_block_y_pos                ; $9F09  A5 AB
+  lda z:_var_00ab                ; $9F09  A5 AB
   bne _label_9ee8                ; $9F0B  D0 DB
   lda #$40                       ; $9F0D  A9 40
   jsr _func_a7fd                 ; $9F0F  20 FD A7
@@ -3142,13 +3125,13 @@ _label_9f28:
   lda z:_var_00ac_indexed        ; $9F28  A5 AC
   jsr _func_9f62                 ; $9F2A  20 62 9F
   lda #$01                       ; $9F2D  A9 01
-  sta a:sfx                ; $9F2F  8D F1 06
+  sta a:_var_06f1                ; $9F2F  8D F1 06
   lda #$02                       ; $9F32  A9 02
   jsr _func_a7fd                 ; $9F34  20 FD A7
   lda z:_var_00ac_indexed        ; $9F37  A5 AC
   bne _label_9f16                ; $9F39  D0 DB
   lda #$02                       ; $9F3B  A9 02
-  sta a:sfx                ; $9F3D  8D F1 06
+  sta a:_var_06f1                ; $9F3D  8D F1 06
   lda #$40                       ; $9F40  A9 40
   jsr _func_a7fd                 ; $9F42  20 FD A7
 
@@ -3221,7 +3204,7 @@ _label_9f95:
   sta PPU_ADDR                   ; $9FB4  8D 06 20
   lda #$B0                       ; $9FB7  A9 B0
   sta PPU_ADDR                   ; $9FB9  8D 06 20
-  lda z:center_block_y_pos       ; $9FBC  A5 AB
+  lda z:_var_00ab                ; $9FBC  A5 AB
   jsr _func_9712                 ; $9FBE  20 12 97
   lda #$20                       ; $9FC1  A9 20
   sta PPU_ADDR                   ; $9FC3  8D 06 20
@@ -3281,10 +3264,10 @@ _func_a0ee:
 
 _label_a0fa:
   lda z:_var_00d5                ; $A0FA  A5 D5
-  sta z:tetrimino_iterator                ; $A0FC  85 A9
+  sta z:_var_00a9                ; $A0FC  85 A9
   asl a                          ; $A0FE  0A
   clc                            ; $A0FF  18
-  adc z:tetrimino_iterator                ; $A100  65 A9
+  adc z:_var_00a9                ; $A100  65 A9
   tay                            ; $A102  A8
   lda a:_var_0730_indexed,Y      ; $A103  B9 30 07
   cmp z:_var_0075                ; $A106  C5 75
@@ -3369,33 +3352,33 @@ _label_a16a:
   jmp _label_a201                ; $A18F  4C 01 A2
 
 _func_a192:
-  sta z:orientation_table_index        ; $A192  85 A8
+  sta z:_var_00a8_indexed        ; $A192  85 A8
   lda z:_var_00c1                ; $A194  A5 C1
   beq _label_a19f                ; $A196  F0 07
   lda #$18                       ; $A198  A9 18
   clc                            ; $A19A  18
-  adc z:orientation_table_index        ; $A19B  65 A8
-  sta z:orientation_table_index        ; $A19D  85 A8
+  adc z:_var_00a8_indexed        ; $A19B  65 A8
+  sta z:_var_00a8_indexed        ; $A19D  85 A8
 
 _label_a19f:
   lda #$05                       ; $A19F  A9 05
-  sta z:tetrimino_iterator                ; $A1A1  85 A9
+  sta z:_var_00a9                ; $A1A1  85 A9
 
 _label_a1a3:
-  lda z:orientation_table_index        ; $A1A3  A5 A8
+  lda z:_var_00a8_indexed        ; $A1A3  A5 A8
   clc                            ; $A1A5  18
-  adc z:tetrimino_iterator                ; $A1A6  65 A9
+  adc z:_var_00a9                ; $A1A6  65 A9
   tax                            ; $A1A8  AA
   lda a:_var_0700_indexed,X      ; $A1A9  BD 00 07
-  sta z:center_block_x_pos                ; $A1AC  85 AA
+  sta z:_var_00aa                ; $A1AC  85 AA
   txa                            ; $A1AE  8A
   clc                            ; $A1AF  18
   adc #$06                       ; $A1B0  69 06
   tax                            ; $A1B2  AA
-  lda z:center_block_x_pos                ; $A1B3  A5 AA
+  lda z:_var_00aa                ; $A1B3  A5 AA
   sta a:_var_0700_indexed,X      ; $A1B5  9D 00 07
-  dec z:tetrimino_iterator                ; $A1B8  C6 A9
-  lda z:tetrimino_iterator                ; $A1BA  A5 A9
+  dec z:_var_00a9                ; $A1B8  C6 A9
+  lda z:_var_00a9                ; $A1BA  A5 A9
   cmp #$FF                       ; $A1BC  C9 FF
   bne _label_a1a3                ; $A1BE  D0 E3
   rts                            ; $A1C0  60
@@ -3491,7 +3474,7 @@ _label_a344:
   tax                            ; $A35B  AA
   inx                            ; $A35C  E8
   lda a:_data_a086_indexed,X     ; $A35D  BD 86 A0
-  sta z:orientation_table_index        ; $A360  85 A8
+  sta z:_var_00a8_indexed        ; $A360  85 A8
   clc                            ; $A362  18
   adc z:_var_00d4                ; $A363  65 D4
   sta PPU_ADDR                   ; $A365  8D 06 20
@@ -3588,7 +3571,7 @@ _label_a403:
   lda a:_data_a42e_indexed,X     ; $A403  BD 2E A4
   cmp #$80                       ; $A406  C9 80
   beq _label_a411                ; $A408  F0 07
-  sta (playFieldAddr),Y      ; $A40A  91 B8
+  sta (_var_00b8_indexed),Y      ; $A40A  91 B8
   inx                            ; $A40C  E8
   iny                            ; $A40D  C8
   jmp _label_a403                ; $A40E  4C 03 A4
@@ -3930,10 +3913,10 @@ _label_a625:
 _label_a62e:
   ldx z:_var_0044                ; $A62E  A6 44
   lda a:_data_a767_indexed,X     ; $A630  BD 67 A7
-  sta z:orientation_table_index        ; $A633  85 A8
+  sta z:_var_00a8_indexed        ; $A633  85 A8
   ldx z:_var_00cc                ; $A635  A6 CC
   lda z:_var_00c6_indexed,X      ; $A637  B5 C6
-  cmp z:orientation_table_index        ; $A639  C5 A8
+  cmp z:_var_00a8_indexed        ; $A639  C5 A8
   beq _label_a675                ; $A63B  F0 38
   sta z:_var_00a0                ; $A63D  85 A0
   jsr _func_a6ae                 ; $A63F  20 AE A6
@@ -3963,7 +3946,7 @@ _label_a62e:
 
 _label_a675:
   lda z:_var_00cc                ; $A675  A5 CC
-  sta z:orientation_table_index        ; $A677  85 A8
+  sta z:_var_00a8_indexed        ; $A677  85 A8
   cmp z:_var_0059                ; $A679  C5 59
   beq _label_a682                ; $A67B  F0 05
   inc z:_var_00cc                ; $A67D  E6 CC
@@ -4002,10 +3985,10 @@ _label_a6a5:
 _func_a6ae:
   lda z:_var_0044                ; $A6AE  A5 44
   asl a                          ; $A6B0  0A
-  sta z:orientation_table_index        ; $A6B1  85 A8
+  sta z:_var_00a8_indexed        ; $A6B1  85 A8
   asl a                          ; $A6B3  0A
   clc                            ; $A6B4  18
-  adc z:orientation_table_index        ; $A6B5  65 A8
+  adc z:_var_00a8_indexed        ; $A6B5  65 A8
   clc                            ; $A6B7  18
   adc z:_var_00cc                ; $A6B8  65 CC
   tax                            ; $A6BA  AA
@@ -4036,20 +4019,20 @@ _label_a6d9:
   ldx z:_var_00cc                ; $A6D9  A6 CC
   lda z:_var_00c8_indexed,X      ; $A6DB  B5 C8
   beq _label_a72c                ; $A6DD  F0 4D
-  sta z:orientation_table_index        ; $A6DF  85 A8
+  sta z:_var_00a8_indexed        ; $A6DF  85 A8
   lda a:_data_a73d_indexed,X     ; $A6E1  BD 3D A7
-  cmp z:orientation_table_index        ; $A6E4  C5 A8
+  cmp z:_var_00a8_indexed        ; $A6E4  C5 A8
   beq _label_a6f7                ; $A6E6  F0 0F
   lda #$03                       ; $A6E8  A9 03
   sta a:_var_06f0_indexed        ; $A6EA  8D F0 06
-  dec z:orientation_table_index        ; $A6ED  C6 A8
-  lda z:orientation_table_index        ; $A6EF  A5 A8
+  dec z:_var_00a8_indexed        ; $A6ED  C6 A8
+  lda z:_var_00a8_indexed        ; $A6EF  A5 A8
   cmp #$A0                       ; $A6F1  C9 A0
   bcs _label_a6f7                ; $A6F3  B0 02
-  dec z:orientation_table_index        ; $A6F5  C6 A8
+  dec z:_var_00a8_indexed        ; $A6F5  C6 A8
 
 _label_a6f7:
-  lda z:orientation_table_index        ; $A6F7  A5 A8
+  lda z:_var_00a8_indexed        ; $A6F7  A5 A8
   sta z:_var_00c8_indexed,X      ; $A6F9  95 C8
   sta z:_var_00a1                ; $A6FB  85 A1
   lda a:_data_a739_indexed,X     ; $A6FD  BD 39 A7
@@ -4059,9 +4042,9 @@ _label_a6f7:
   jsr _func_8c27                 ; $A707  20 27 8C
   ldx z:_var_00cc                ; $A70A  A6 CC
   lda z:_var_00c8_indexed,X      ; $A70C  B5 C8
-  sta z:orientation_table_index        ; $A70E  85 A8
+  sta z:_var_00a8_indexed        ; $A70E  85 A8
   lda a:_data_a73d_indexed,X     ; $A710  BD 3D A7
-  cmp z:orientation_table_index        ; $A713  C5 A8
+  cmp z:_var_00a8_indexed        ; $A713  C5 A8
   beq _label_a72c                ; $A715  F0 15
   lda a:_data_a745_indexed,X     ; $A717  BD 45 A7
   clc                            ; $A71A  18
@@ -4204,12 +4187,12 @@ _label_a9b1:
   jsr _func_8c27                 ; $A9C7  20 27 8C
   lda z:_var_00c4                ; $A9CA  A5 C4
   asl a                          ; $A9CC  0A
-  sta z:orientation_table_index        ; $A9CD  85 A8
+  sta z:_var_00a8_indexed        ; $A9CD  85 A8
   lda z:_var_00b1                ; $A9CF  A5 B1
   and #$02                       ; $A9D1  29 02
   lsr a                          ; $A9D3  4A
   clc                            ; $A9D4  18
-  adc z:orientation_table_index        ; $A9D5  65 A8
+  adc z:_var_00a8_indexed        ; $A9D5  65 A8
   tax                            ; $A9D7  AA
   lda a:_data_aa16_indexed,X     ; $A9D8  BD 16 AA
   sta z:_var_00a2                ; $A9DB  85 A2
@@ -4341,10 +4324,10 @@ _label_aa9e:
   pha                            ; $AA9E  48
   sta PPU_ADDR                   ; $AA9F  8D 06 20
   iny                            ; $AAA2  C8
-  lda (tmp1),Y      ; $AAA3  B1 00
+  lda (_var_0000_indexed),Y      ; $AAA3  B1 00
   sta PPU_ADDR                   ; $AAA5  8D 06 20
   iny                            ; $AAA8  C8
-  lda (tmp1),Y      ; $AAA9  B1 00
+  lda (_var_0000_indexed),Y      ; $AAA9  B1 00
   asl a                          ; $AAAB  0A
   pha                            ; $AAAC  48
   lda z:_var_00ff                ; $AAAD  A5 FF
@@ -4378,7 +4361,7 @@ _label_aaca:
   iny                            ; $AACC  C8
 
 _label_aacd:
-  lda (tmp1),Y      ; $AACD  B1 00
+  lda (_var_0000_indexed),Y      ; $AACD  B1 00
   sta PPU_DATA                   ; $AACF  8D 07 20
   dex                            ; $AAD2  CA
   bne _label_aaca                ; $AAD3  D0 F5
@@ -4393,16 +4376,16 @@ _label_aacd:
 _label_aae6:
   sec                            ; $AAE6  38
   tya                            ; $AAE7  98
-  adc z:tmp1        ; $AAE8  65 00
-  sta z:tmp1        ; $AAEA  85 00
+  adc z:_var_0000_indexed        ; $AAE8  65 00
+  sta z:_var_0000_indexed        ; $AAEA  85 00
   lda #$00                       ; $AAEC  A9 00
-  adc z:tmp2        ; $AAEE  65 01
-  sta z:tmp2        ; $AAF0  85 01
+  adc z:_var_0001_indexed        ; $AAEE  65 01
+  sta z:_var_0001_indexed        ; $AAF0  85 01
 
 _label_aaf2:
   ldx PPU_STATUS                 ; $AAF2  AE 02 20
   ldy #$00                       ; $AAF5  A0 00
-  lda (tmp1),Y      ; $AAF7  B1 00
+  lda (_var_0000_indexed),Y      ; $AAF7  B1 00
   bpl _label_aafc                ; $AAF9  10 01
   rts                            ; $AAFB  60
 
@@ -4410,26 +4393,26 @@ _label_aafc:
   cmp #$60                       ; $AAFC  C9 60
   bne _label_ab0a                ; $AAFE  D0 0A
   pla                            ; $AB00  68
-  sta z:tmp2        ; $AB01  85 01
+  sta z:_var_0001_indexed        ; $AB01  85 01
   pla                            ; $AB03  68
-  sta z:tmp1        ; $AB04  85 00
+  sta z:_var_0000_indexed        ; $AB04  85 00
   ldy #$02                       ; $AB06  A0 02
   bne _label_aae6                ; $AB08  D0 DC
 
 _label_ab0a:
   cmp #$4C                       ; $AB0A  C9 4C
   bne _label_aa9e                ; $AB0C  D0 90
-  lda z:tmp1        ; $AB0E  A5 00
+  lda z:_var_0000_indexed        ; $AB0E  A5 00
   pha                            ; $AB10  48
-  lda z:tmp2        ; $AB11  A5 01
+  lda z:_var_0001_indexed        ; $AB11  A5 01
   pha                            ; $AB13  48
   iny                            ; $AB14  C8
-  lda (tmp1),Y      ; $AB15  B1 00
+  lda (_var_0000_indexed),Y      ; $AB15  B1 00
   tax                            ; $AB17  AA
   iny                            ; $AB18  C8
-  lda (tmp1),Y      ; $AB19  B1 00
-  sta z:tmp2        ; $AB1B  85 01
-  stx z:tmp1        ; $AB1D  86 00
+  lda (_var_0000_indexed),Y      ; $AB19  B1 00
+  sta z:_var_0001_indexed        ; $AB1B  85 01
+  stx z:_var_0000_indexed        ; $AB1D  86 00
   bcs _label_aaf2                ; $AB1F  B0 D1
 
 _func_ab21:
@@ -4440,10 +4423,10 @@ _func_ab21:
   sta z:_var_0006                ; $AB2A  85 06
   ldy #$01                       ; $AB2C  A0 01
   lda (_var_0005_indexed),Y      ; $AB2E  B1 05
-  sta z:tmp1        ; $AB30  85 00
+  sta z:_var_0000_indexed        ; $AB30  85 00
   iny                            ; $AB32  C8
   lda (_var_0005_indexed),Y      ; $AB33  B1 05
-  sta z:tmp2        ; $AB35  85 01
+  sta z:_var_0001_indexed        ; $AB35  85 01
   clc                            ; $AB37  18
   lda #$02                       ; $AB38  A9 02
   adc z:_var_0005_indexed        ; $AB3A  65 05
@@ -4454,18 +4437,18 @@ _func_ab21:
   rts                            ; $AB46  60
 
 _func_ab47:
-  lda z:tmp1,X      ; $AB47  B5 00
+  lda z:_var_0000_indexed,X      ; $AB47  B5 00
   and #$02                       ; $AB49  29 02
-  sta z:tmp1        ; $AB4B  85 00
-  lda z:tmp2,X      ; $AB4D  B5 01
+  sta z:_var_0000_indexed        ; $AB4B  85 00
+  lda z:_var_0001_indexed,X      ; $AB4D  B5 01
   and #$02                       ; $AB4F  29 02
-  eor z:tmp1        ; $AB51  45 00
+  eor z:_var_0000_indexed        ; $AB51  45 00
   clc                            ; $AB53  18
   beq _label_ab57                ; $AB54  F0 01
   sec                            ; $AB56  38
 
 _label_ab57:
-  ror z:tmp1,X      ; $AB57  76 00
+  ror z:_var_0000_indexed,X      ; $AB57  76 00
   inx                            ; $AB59  E8
   dey                            ; $AB5A  88
   bne _label_ab57                ; $AB5B  D0 FA
@@ -4491,21 +4474,21 @@ _label_ab75:
   lsr a                          ; $AB78  4A
   rol z:_var_00f5_indexed        ; $AB79  26 F5
   lsr a                          ; $AB7B  4A
-  rol z:tmp1        ; $AB7C  26 00
+  rol z:_var_0000_indexed        ; $AB7C  26 00
   lda JOYPAD2                    ; $AB7E  AD 17 40
   lsr a                          ; $AB81  4A
   rol z:_var_00f6                ; $AB82  26 F6
   lsr a                          ; $AB84  4A
-  rol z:tmp2        ; $AB85  26 01
+  rol z:_var_0001_indexed        ; $AB85  26 01
   dex                            ; $AB87  CA
   bne _label_ab75                ; $AB88  D0 EB
   rts                            ; $AB8A  60
 
 _func_ab8b:
-  lda z:tmp1        ; $AB8B  A5 00
+  lda z:_var_0000_indexed        ; $AB8B  A5 00
   ora z:_var_00f5_indexed        ; $AB8D  05 F5
   sta z:_var_00f5_indexed        ; $AB8F  85 F5
-  lda z:tmp2        ; $AB91  A5 01
+  lda z:_var_0001_indexed        ; $AB91  A5 01
   ora z:_var_00f6                ; $AB93  05 F6
   sta z:_var_00f6                ; $AB95  85 F6
   rts                            ; $AB97  60
@@ -4516,16 +4499,16 @@ _func_ab9d:
   jsr _func_ab69                 ; $AB9D  20 69 AB
   jsr _func_ab8b                 ; $ABA0  20 8B AB
   lda z:_var_00f5_indexed        ; $ABA3  A5 F5
-  sta z:tetrimino_iterator                ; $ABA5  85 A9
+  sta z:_var_00a9                ; $ABA5  85 A9
   lda z:_var_00f6                ; $ABA7  A5 F6
-  sta z:center_block_x_pos                ; $ABA9  85 AA
+  sta z:_var_00aa                ; $ABA9  85 AA
   jsr _func_ab69                 ; $ABAB  20 69 AB
   jsr _func_ab8b                 ; $ABAE  20 8B AB
   lda z:_var_00f5_indexed        ; $ABB1  A5 F5
-  and z:tetrimino_iterator                ; $ABB3  25 A9
+  and z:_var_00a9                ; $ABB3  25 A9
   sta z:_var_00f5_indexed        ; $ABB5  85 F5
   lda z:_var_00f6                ; $ABB7  A5 F6
-  and z:center_block_x_pos                ; $ABB9  25 AA
+  and z:_var_00aa                ; $ABB9  25 AA
   sta z:_var_00f6                ; $ABBB  85 F6
   ldx #$01                       ; $ABBD  A2 01
 
@@ -4547,26 +4530,26 @@ _label_abbf:
 .byte $f5, $a8, $55, $f1, $35, $f5, $95, $f5, $94, $f1, $ca, $10, $f2, $60 ; $AC0E
 
 _func_ac1c:
-  sta z:tmp1        ; $AC1C  85 00
-  stx z:tmp2        ; $AC1E  86 01
-  sty z:tmp3                ; $AC20  84 02
+  sta z:_var_0000_indexed        ; $AC1C  85 00
+  stx z:_var_0001_indexed        ; $AC1E  86 01
+  sty z:_var_0002                ; $AC20  84 02
   lda PPU_STATUS                 ; $AC22  AD 02 20
   lda z:_var_00ff                ; $AC25  A5 FF
   and #$FB                       ; $AC27  29 FB
   sta PPU_CTRL                   ; $AC29  8D 00 20
   sta z:_var_00ff                ; $AC2C  85 FF
-  lda z:tmp1        ; $AC2E  A5 00
+  lda z:_var_0000_indexed        ; $AC2E  A5 00
   sta PPU_ADDR                   ; $AC30  8D 06 20
   ldy #$00                       ; $AC33  A0 00
   sty PPU_ADDR                   ; $AC35  8C 06 20
   ldx #$04                       ; $AC38  A2 04
   cmp #$20                       ; $AC3A  C9 20
   bcs _label_ac40                ; $AC3C  B0 02
-  ldx z:tmp3                ; $AC3E  A6 02
+  ldx z:_var_0002                ; $AC3E  A6 02
 
 _label_ac40:
   ldy #$00                       ; $AC40  A0 00
-  lda z:tmp2        ; $AC42  A5 01
+  lda z:_var_0001_indexed        ; $AC42  A5 01
 
 _label_ac44:
   sta PPU_DATA                   ; $AC44  8D 07 20
@@ -4574,8 +4557,8 @@ _label_ac44:
   bne _label_ac44                ; $AC48  D0 FA
   dex                            ; $AC4A  CA
   bne _label_ac44                ; $AC4B  D0 F7
-  ldy z:tmp3                ; $AC4D  A4 02
-  lda z:tmp1        ; $AC4F  A5 00
+  ldy z:_var_0002                ; $AC4D  A4 02
+  lda z:_var_0000_indexed        ; $AC4F  A5 00
   cmp #$20                       ; $AC51  C9 20
   bcc _label_ac67                ; $AC53  90 12
   adc #$02                       ; $AC55  69 02
@@ -4590,25 +4573,25 @@ _label_ac61:
   bne _label_ac61                ; $AC65  D0 FA
 
 _label_ac67:
-  ldx z:tmp2        ; $AC67  A6 01
+  ldx z:_var_0001_indexed        ; $AC67  A6 01
   rts                            ; $AC69  60
 
 _func_ac6a:
   pha                            ; $AC6A  48
   txa                            ; $AC6B  8A
-  sty z:tmp2        ; $AC6C  84 01
+  sty z:_var_0001_indexed        ; $AC6C  84 01
   clc                            ; $AC6E  18
-  sbc z:tmp2        ; $AC6F  E5 01
+  sbc z:_var_0001_indexed        ; $AC6F  E5 01
   tax                            ; $AC71  AA
   pla                            ; $AC72  68
   ldy #$00                       ; $AC73  A0 00
-  sty z:tmp1        ; $AC75  84 00
+  sty z:_var_0000_indexed        ; $AC75  84 00
 
 _label_ac77:
-  sta (tmp1),Y      ; $AC77  91 00
+  sta (_var_0000_indexed),Y      ; $AC77  91 00
   dey                            ; $AC79  88
   bne _label_ac77                ; $AC7A  D0 FB
-  dec z:tmp2        ; $AC7C  C6 01
+  dec z:_var_0001_indexed        ; $AC7C  C6 01
   inx                            ; $AC7E  E8
   bne _label_ac77                ; $AC7F  D0 F6
   rts                            ; $AC81  60
@@ -4618,16 +4601,16 @@ _jump_engine_ac82:               ; jump engine detected
   tay                            ; $AC83  A8
   iny                            ; $AC84  C8
   pla                            ; $AC85  68
-  sta z:tmp1        ; $AC86  85 00
+  sta z:_var_0000_indexed        ; $AC86  85 00
   pla                            ; $AC88  68
-  sta z:tmp2        ; $AC89  85 01
-  lda (tmp1),Y      ; $AC8B  B1 00
+  sta z:_var_0001_indexed        ; $AC89  85 01
+  lda (_var_0000_indexed),Y      ; $AC8B  B1 00
   tax                            ; $AC8D  AA
   iny                            ; $AC8E  C8
-  lda (tmp1),Y      ; $AC8F  B1 00
-  sta z:tmp2        ; $AC91  85 01
-  stx z:tmp1        ; $AC93  86 00
-  jmp (tmp1)        ; $AC95  6C 00 00
+  lda (_var_0000_indexed),Y      ; $AC8F  B1 00
+  sta z:_var_0001_indexed        ; $AC91  85 01
+  stx z:_var_0000_indexed        ; $AC93  86 00
+  jmp (_var_0000_indexed)        ; $AC95  6C 00 00
 
 .byte $78, $ee, $00, $80, $a9, $1a, $20, $a3, $ac, $60, $60 ; $AC98
 
@@ -6823,208 +6806,43 @@ _data_ec2d_indexed:
 .byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FBCD
 .byte $ff, $ff, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FBDD
 .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FBED
-.byte $00, $81, $08, $ff, $ff, $ff, $ff, $ff
+.byte $00, $81, $08, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $df, $ff, $ff, $ff ; $FBFD
+.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $bd, $ff, $ff, $ff ; $FC0D
+.byte $ff, $ff, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FC1D
+.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FC2D
+.byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FC3D
+.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $fe, $ff, $ff, $7f, $ff, $ff, $f9, $ff ; $FC4D
+.byte $ff, $ef, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FC5D
+.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FC6D
+.byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FC7D
+.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $7f, $ff, $ff, $df, $ff ; $FC8D
+.byte $ff, $bf, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FC9D
+.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FCAD
+.byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FCBD
+.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FCCD
+.byte $ff, $ff, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FCDD
+.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FCED
+.byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FCFD
+.byte $00, $00, $00, $00, $00, $00, $00 ; $FD2D
 
-rotate_tetrimino_new:
-  lda z:tetriminoX
-  sta copyTetriminoX
-  lda z:tetriminoY
-  sta copyTetriminoY
-  lda z:current_piece
-  sta copyCurrentPiece
-  lda #$fa
-  sta fa_mask
-  lda _var_rh
-  cmp #$03
-  bne first_pass
-  lda #$91
-  sta _var_rf
-  bne second_pass
+; _tetrimino_types:
+; .byte $00, $00, $00, $00, $01, $01, $01, $01, $02, $02, $02, $02, $03, $03, $03, $03
+; .byte $04, $04, $04, $04, $05, $05, $05, $05, $06              ; $994B
 
-first_pass:
-  cmp #$06
-  bne _label_88d8
-  lda #$69
-  sta _var_rf
-  bne second_pass
+; _spawn_rotate:
+; .byte $02, $06, $0a, $0e, $12, $16, $18, $02 ; $994E
 
-_label_88d8:
-  lda #$41
-  sta _var_rf
+; _next_to_curr:  ; Translates the next piece's ID to the curr piece ID
+; .byte $02, $02, $02, $02, $06, $06, $06, $06, $0a, $0a, $0a, $0a, $0e, $0e, $0e, $0e ; T, J, Z, S BLOCKS
+; .byte $12, $12, $12, $12, $16, $16, $16, $16, $18; L, I, O BLOCKS
 
-second_pass:
-  lda z:newButtons
-  and #$80
-  cmp #$80
-  bne rotateEnd
-  ldx _var_ra
-  inx
-  txa
-  and #$3
-  sta _var_rb
-  jmp srs_pos_check
-
-rotateEnd:
-  lda z:newButtons
-  and #$40
-  cmp #$40
-  beq gotoPosCheck
-  rts
-
-gotoPosCheck:
-  ldx _var_ra
-  dex
-  txa
-  and #$3
-  sta _var_rb
-  jmp srs_pos_check
-
-next_placement:
-  lda #$0
-  ldy #$b
-
-posCheckLoop:
-  clc
-  adc _var_rh
-  dey
-  bpl posCheckLoop
-  adc _var_rb
-  adc _var_rb
-  adc _var_rb
-  rts
-
-current_placement:
-  ldy z:tmp3
-
-currPlacementLoop:
-  clc
-  adc #$a
-  dey
-  bpl currPlacementLoop
-  sec
-  sbc #$a
-  rts
-
-srs_pos_check:
-  lda _var_rf
-  sta z:tmp1
-  lda fa_mask
-  sta z:tmp2
-  jsr next_placement
-  clc
-  adc #$2
-  tax
-  lda $fab9,X
-  sta z:current_piece
-  ldx #$0
-
-bigLoop:
-  stx _var_030d
-  lda _var_rb
-  sta z:tmp3
-  txa
-  asl a
-  jsr current_placement
-  tay
-  lda (0),Y
-  sta _var_030c
-  lda _var_ra
-  sta z:tmp3
-  txa
-  asl a
-  jsr current_placement
-  tay
-  lda (0),Y
-  sec
-  sbc _var_030c
-  clc
-  adc _var_0300
-  sta _var_0303
-  jsr next_placement
-  tax
-  lda $fab9,X
-  clc
-  adc _var_0303
-  sta z:tetriminoX
-  lda _var_rb
-  sta z:tmp3
-  lda _var_030d
-  asl a
-  clc
-  adc #$1
-  jsr current_placement
-  tay
-  lda (0),Y
-  sta _var_030c
-  lda _var_ra
-  sta z:tmp3
-  lda _var_030d
-  asl a
-  clc
-  adc #$1
-  jsr current_placement
-  tay
-  lda (0),Y
-  sec
-  sbc _var_030c
-  clc
-  adc _var_0301
-  sta _var_0304
-  jsr next_placement
-  clc
-  adc #$1
-  tax
-  lda $fab9,X
-  clc
-  adc _var_0304
-  sta z:tetriminoY
-  jsr is_position_valid
-  bne endChecks
-  lda _var_0303
-  sta _var_0300
-  lda _var_0304
-  sta _var_0301
-  lda _var_rb
-  sta _var_ra
-  jsr yLevelCheck
-  lda #$5
-  sta sfx
-  rts
-
-endChecks:
-  lda _var_030d
-  inx
-  txa
-  cmp #$5
-  bne endPosCheck
-  lda copyTetriminoX
-  sta z:tetriminoX
-  lda copyTetriminoY
-  sta z:tetriminoY
-  lda copyCurrentPiece
-  sta z:current_piece
-  rts
-
-endPosCheck:
-  jmp bigLoop
-
-yLevelCheck:
-  lda z:tetriminoY
-  cmp copyTetriminoY
-  beq endYLevelCheck
-  lda #$0
-  sta z:_var_0045
-
-endYLevelCheck:
-  rts
-
-rotation_table:
+_rotation_table:
 .byte $03, $01, $00, $02, $01, $03, $02, $00, $07, $05, $04, $06, $05, $07, $06, $04 ; T-BLOCK, J-BLOCK
 .byte $0B, $09, $08, $0A, $09, $0B, $0A, $08, $0F, $0D, $0C, $0E, $0D, $0F, $0E, $0C ; Z-BLOCK, S-BLOCK
 .byte $13, $11, $10, $12, $11, $13, $12, $10, $17, $15, $14, $16, $15, $17, $16, $14 ; L-BLOCK, I-BLOCK
 .byte $18, $18                                                                       ; O-BLOCK
 
-orientation_table:
+_orientation_table:
 .byte $00, $7b, $ff, $00, $7b, $00, $00, $7b, $01, $ff, $7b, $00, $ff, $7b, $00, $00 ; T-BLOCK
 .byte $7b, $00, $00, $7b, $01, $01, $7b, $00, $00, $7b, $ff, $00, $7b, $00, $00, $7b 
 .byte $01, $01, $7b, $00, $ff, $7b, $00, $00, $7b, $00, $00, $7b, $ff, $01, $7b, $00
