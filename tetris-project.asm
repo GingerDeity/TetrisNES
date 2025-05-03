@@ -1069,8 +1069,8 @@ _label_88a8:
   rts                            ; $88AA  60
 
 rotate_tetrimino:
-  lda z:current_piece                ; $88AB  A5 42
-  sta z:originalY                ; $88AD  85 AE
+  jmp rotate_tetrimino_new                ; $88AB  A5 42
+  clc                ; $88AD  85 AE
   clc                            ; $88AF  18
   lda z:current_piece                ; $88B0  A5 42
   asl a                          ; $88B2  0A
@@ -6884,27 +6884,27 @@ rotate_tetrimino_new:
   sta fa_mask
   lda _var_rh
   cmp #$03
-  bne _label_88cd
+  bne first_pass
   lda #$91
   sta _var_rf
-  bne _label_88dd
+  bne second_pass
 
-_label_88cd:
+first_pass:
   cmp #$06
   bne _label_88d8
   lda #$69
   sta _var_rf
-  bne _label_88dd
+  bne second_pass
 
 _label_88d8:
   lda #$41
   sta _var_rf
 
-_label_88dd:
+second_pass:
   lda z:newButtons
   and #$80
   cmp #$80
-  bne _label_88f3
+  bne rotateEnd
   ldx _var_ra
   inx
   txa
@@ -6912,14 +6912,14 @@ _label_88dd:
   sta _var_rb
   jmp srs_pos_check
 
-_label_88f3:
+rotateEnd:
   lda z:newButtons
   and #$40
   cmp #$40
-  beq _label_88fd
+  beq gotoPosCheck
   rts
 
-_label_88fd:
+gotoPosCheck:
   ldx _var_ra
   dex
   txa
@@ -6927,28 +6927,28 @@ _label_88fd:
   sta _var_rb
   jmp srs_pos_check
 
-FUN_fb0d:
+next_placement:
   lda #$0
   ldy #$b
 
-_label_fb11:
+posCheckLoop:
   clc
   adc _var_rh
   dey
-  bpl _label_fb11
+  bpl posCheckLoop
   adc _var_rb
   adc _var_rb
   adc _var_rb
   rts
 
-FUN_fb22:
+current_placement:
   ldy z:tmp3
 
-_label_fb24:
+currPlacementLoop:
   clc
   adc #$a
   dey
-  bpl _label_fb24
+  bpl currPlacementLoop
   sec
   sbc #$a
   rts
@@ -6958,7 +6958,7 @@ srs_pos_check:
   sta z:tmp1
   lda fa_mask
   sta z:tmp2
-  jsr FUN_fb0d
+  jsr next_placement
   clc
   adc #$2
   tax
@@ -6966,13 +6966,13 @@ srs_pos_check:
   sta z:current_piece
   ldx #$0
 
-_label_fb46:
+bigLoop:
   stx _var_030d
   lda _var_rb
   sta z:tmp3
   txa
   asl a
-  jsr FUN_fb22
+  jsr current_placement
   tay
   lda (0),Y
   sta _var_030c
@@ -6980,7 +6980,7 @@ _label_fb46:
   sta z:tmp3
   txa
   asl a
-  jsr FUN_fb22
+  jsr current_placement
   tay
   lda (0),Y
   sec
@@ -6988,7 +6988,7 @@ _label_fb46:
   clc
   adc _var_0300
   sta _var_0303
-  jsr FUN_fb0d
+  jsr next_placement
   tax
   lda $fab9,X
   clc
@@ -7000,7 +7000,7 @@ _label_fb46:
   asl a
   clc
   adc #$1
-  jsr FUN_fb22
+  jsr current_placement
   tay
   lda (0),Y
   sta _var_030c
@@ -7010,7 +7010,7 @@ _label_fb46:
   asl a
   clc
   adc #$1
-  jsr FUN_fb22
+  jsr current_placement
   tay
   lda (0),Y
   sec
@@ -7018,7 +7018,7 @@ _label_fb46:
   clc
   adc _var_0301
   sta _var_0304
-  jsr FUN_fb0d
+  jsr next_placement
   clc
   adc #$1
   tax
@@ -7027,24 +7027,24 @@ _label_fb46:
   adc _var_0304
   sta z:tetriminoY
   jsr is_position_valid
-  bne _label_fbe0
+  bne endChecks
   lda _var_0303
   sta _var_0300
   lda _var_0304
   sta _var_0301
   lda _var_rb
   sta _var_ra
-  jsr FUN_fbfc
+  jsr yLevelCheck
   lda #$5
   sta sfx
   rts
 
-_label_fbe0:
+endChecks:
   lda _var_030d
   inx
   txa
   cmp #$5
-  bne _label_fbf9
+  bne endPosCheck
   lda copyTetriminoX
   sta z:tetriminoX
   lda copyTetriminoY
@@ -7053,17 +7053,17 @@ _label_fbe0:
   sta z:current_piece
   rts
 
-_label_fbf9:
-  jmp _label_fb46
+endPosCheck:
+  jmp bigLoop
 
-FUN_fbfc:
+yLevelCheck:
   lda z:tetriminoY
   cmp copyTetriminoY
-  beq _label_fc07
+  beq endYLevelCheck
   lda #$0
   sta z:_var_0045
 
-_label_fc07:
+endYLevelCheck:
   rts
 
 Reset:
