@@ -2214,19 +2214,19 @@ _func_9969:
   lda a:_var_03f0_indexed,X      ; $996F  BD F0 03
   clc                            ; $9972  18
   adc #$01                       ; $9973  69 01
-  sta z:orientation_table_index        ; $9975  85 A8
+  sta z:orientation_table_index  ; $9975  85 A8
   and #$0F                       ; $9977  29 0F
   cmp #$0A                       ; $9979  C9 0A
   bmi _label_9996                ; $997B  30 19
-  lda z:orientation_table_index        ; $997D  A5 A8
+  lda z:orientation_table_index  ; $997D  A5 A8
   clc                            ; $997F  18
   adc #$06                       ; $9980  69 06
-  sta z:orientation_table_index        ; $9982  85 A8
+  sta z:orientation_table_index  ; $9982  85 A8
   cmp #$A0                       ; $9984  C9 A0
   bcc _label_9996                ; $9986  90 0E
   clc                            ; $9988  18
   adc #$60                       ; $9989  69 60
-  sta z:orientation_table_index        ; $998B  85 A8
+  sta z:orientation_table_index  ; $998B  85 A8
   lda a:_var_03f1_indexed,X      ; $998D  BD F1 03
   clc                            ; $9990  18
   adc #$01                       ; $9991  69 01
