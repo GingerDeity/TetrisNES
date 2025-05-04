@@ -19,14 +19,13 @@ orientation_table = \
    "0x00",  "0x00",  "0x7b",  "0x01",  "0xfe",  "0x7b",  "0xff",  "0xff",  "0x7b",  "0xff",  "0x00",  "0x7b",  "0xff",  "0x01",  "0x7b",  "0xff",
    "0x00",  "0x7b",  "0xff",  "0x00",  "0x7b",  "0x00",  "0x01",  "0x7b",  "0xff",  "0x01",  "0x7b",  "0x00"]
 
-print("current_piece   piece_index_for_table   originalX   originalY   tileID")
-
 ninesquaredisplay = [["0"]*3 for _ in range(3)]
 sixteensquaredisplay = [["0"]*4 for _ in range(4)]
 for current_piece in range(0,25):
     orientation_table_index = current_piece << 2 | current_piece >> 7
     piece_index_for_table = ((orientation_table_index << 1 | (current_piece << 1) >> 7)\
                               + orientation_table_index) - (orientation_table_index >> 7)
+    print("current_piece: ", current_piece)
     for i in range (0,4):
         yValue = int(orientation_table[piece_index_for_table], 16)
         if (yValue & (1 << 7)) != 0: yValue -= 256
@@ -39,10 +38,8 @@ for current_piece in range(0,25):
 
         if current_piece >= 20: sixteensquaredisplay[yValue + 2][xValue + 2] = "1"
         else: ninesquaredisplay[yValue + 1][xValue + 1] = "1"
-        # print(f"{current_piece:<15} {piece_index_for_table:<23} {xValue:<11} {yValue:<11} {tileID:<8}")
         piece_index_for_table += 3
 
-    print()
     if current_piece >= 20:
         for row in sixteensquaredisplay:
             for elem in row:
