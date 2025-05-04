@@ -1076,7 +1076,7 @@ _label_88cf:
   and #$40                       ; $88D1  29 40
   cmp #$40                       ; $88D3  C9 40
   bne _label_88ed                ; $88D5  D0 16
-  lda a:_rotation_table,X     ; $88D7  BD EE 88
+  lda a:_rotation_table,X        ; $88D7  BD EE 88
   sta z:_var_0042                ; $88DA  85 42
   jsr _func_948b                 ; $88DC  20 8B 94
   bne _label_88e9                ; $88DF  D0 08
@@ -1355,7 +1355,7 @@ _func_8bce:
   lda #$77                       ; $8BD6  A9 77
   sta z:_var_00a1                ; $8BD8  85 A1
   ldx z:_var_00bf                ; $8BDA  A6 BF
-  lda a:_data_8be5_indexed,X     ; $8BDC  BD E5 8B
+  lda a:_nextIDtoSprite,X     ; $8BDC  BD E5 8B
   sta z:_var_00a2                ; $8BDF  85 A2
   jmp _func_8c27                 ; $8BE1  4C 27 8C
 
@@ -2100,7 +2100,7 @@ _label_98ba:
   lda #$05                       ; $98C6  A9 05
   sta z:_var_0040_indexed        ; $98C8  85 40
   ldx z:_var_00bf                ; $98CA  A6 BF
-  lda a:_data_9956_indexed,X           ; $98CC  BD 56 99
+  lda a:_next_to_curr,X           ; $98CC  BD 56 99
   sta z:_var_0042                ; $98CF  85 42
   jsr _func_9969                 ; $98D1  20 69 99
   lda z:_var_00be                ; $98D4  A5 BE
@@ -2134,7 +2134,7 @@ _func_98eb:
   lsr a                          ; $98FB  4A
   and #$07                       ; $98FC  29 07
   tax                            ; $98FE  AA
-  lda a:_data_994e_indexed,X     ; $98FF  BD 4E 99
+  lda a:_spawn_rotate,X     ; $98FF  BD 4E 99
   rts                            ; $9902  60
 
 _label_9903:
@@ -2150,7 +2150,7 @@ _func_9907:
   cmp #$07                       ; $9910  C9 07
   beq _label_991c                ; $9912  F0 08
   tax                            ; $9914  AA
-  lda a:_data_994e_indexed,X     ; $9915  BD 4E 99
+  lda a:_spawn_rotate,X     ; $9915  BD 4E 99
   cmp z:_var_0019                ; $9918  C5 19
   bne _label_9938                ; $991A  D0 1C
 
@@ -2172,7 +2172,7 @@ _label_992a:
 
 _label_9934:
   tax                            ; $9934  AA
-  lda a:_data_994e_indexed,X     ; $9935  BD 4E 99
+  lda a:_spawn_rotate,X     ; $9935  BD 4E 99
 
 _label_9938:
   sta z:_var_0019                ; $9938  85 19
@@ -2191,7 +2191,7 @@ _data_9956_indexed:
 
 _func_9969:
   tax                            ; $9969  AA
-  lda a:_data_993b_indexed,X     ; $996A  BD 3B 99
+  lda a:_tetrimino_types,X     ; $996A  BD 3B 99
   asl a                          ; $996D  0A
   tax                            ; $996E  AA
   lda a:_var_03f0_indexed,X      ; $996F  BD F0 03
@@ -6819,22 +6819,25 @@ _data_ec2d_indexed:
 .byte $ff, $bf, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FC9D
 .byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FCAD
 .byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FCBD
-.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FCCD
-.byte $ff, $ff, $ff, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FCDD
-.byte $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00 ; $FCED
-.byte $00, $00, $00, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff ; $FCFD
-.byte $00, $00, $00, $00, $00, $00, $00 ; $FD2D
+.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
 
-; _tetrimino_types:
-; .byte $00, $00, $00, $00, $01, $01, $01, $01, $02, $02, $02, $02, $03, $03, $03, $03
-; .byte $04, $04, $04, $04, $05, $05, $05, $05, $06              ; $994B
+_tetrimino_types:
+.byte $00, $00, $00, $00, $01, $01, $01, $01, $02, $02, $02, $02, $03, $03, $03, $03
+.byte $04, $04, $04, $04, $05, $05, $05, $05, $06              ; $993B
 
-; _spawn_rotate:
-; .byte $02, $06, $0a, $0e, $12, $16, $18, $02 ; $994E
+_spawn_rotate:
+.byte $02, $06, $0a, $0e, $12, $16, $18, $02 ; $994E
 
-; _next_to_curr:  ; Translates the next piece's ID to the curr piece ID
-; .byte $02, $02, $02, $02, $06, $06, $06, $06, $0a, $0a, $0a, $0a, $0e, $0e, $0e, $0e ; T, J, Z, S BLOCKS
-; .byte $12, $12, $12, $12, $16, $16, $16, $16, $18; L, I, O BLOCKS
+_next_to_curr:  ; Translates the next piece's ID to the curr piece ID
+.byte $02, $02, $02, $02, $06, $06, $06, $06, $0a, $0a, $0a, $0a, $0e, $0e, $0e, $0e ; T, J, Z, S BLOCKS
+.byte $12, $12, $12, $12, $16, $16, $16, $16, $18; L, I, O BLOCKS
+
+_nextIDtoSprite:
+.byte $00, $00, $06, $00, $00, $00, $09, $00, $00, $00, $08, $00, $00, $00, $07, $00
+.byte $00, $00, $0a, $00, $00, $00, $0c, $00, $0b, $00, $00, $0b, $00, $00, $00, $00
+.byte $12, $11, $00, $14, $10, $00, $00, $13, $00, $00, $00, $15, $00, $ff, $fe, $fd
+.byte $fc, $fd, $fe, $ff, $00, $01, $02, $03, $04, $05, $06, $07, $08, $09, $0a, $0b
+.byte $0c, $0d, $0e, $0f, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19
 
 _rotation_table:
 .byte $03, $01, $00, $02, $01, $03, $02, $00, $07, $05, $04, $06, $05, $07, $06, $04 ; T-BLOCK, J-BLOCK
